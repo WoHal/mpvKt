@@ -1,4 +1,3 @@
-import com.android.build.api.variant.FilterConfiguration
 import io.gitlab.arturbosch.detekt.Detekt
 import org.apache.commons.io.output.ByteArrayOutputStream
 
@@ -42,6 +41,9 @@ android {
     create("phone") {
       dimension = "device"
     }
+    create("tv") {
+      dimension = "device"
+    }
   }
 
   buildTypes {
@@ -81,12 +83,12 @@ android {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
   }
-  val abiCodes = mapOf(
-    "armeabi-v7a" to 1,
-    "arm64-v8a" to 2,
-    "x86" to 3,
-    "x86_64" to 4,
-  )
+//  val abiCodes = mapOf(
+//    "armeabi-v7a" to 1,
+//    "arm64-v8a" to 2,
+//    "x86" to 3,
+//    "x86_64" to 4,
+//  )
 //  androidComponents {
 //    onVariants { variant ->
 //      variant.outputs.forEach { output ->
@@ -111,6 +113,8 @@ room {
 }
 
 dependencies {
+  implementation(project(":AutoMaterial3"))
+
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)
@@ -131,6 +135,10 @@ dependencies {
 
   implementation(libs.mpv.lib)
   implementation(libs.timber)
+
+//  implementation(fileTree("${rootDir}/aars") {
+//    include("*.aar")
+//  })
 
   implementation(platform(libs.koin.bom))
   implementation(libs.bundles.koin)

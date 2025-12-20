@@ -15,17 +15,19 @@ import live.mehiz.mpvkt.ui.player.controls.components.ControlsButton
 @Composable
 fun TopLeftPlayerControls(
   mediaTitle: String,
-  onBackClick: () -> Unit,
   modifier: Modifier = Modifier,
+  onBackClick: (() -> Unit)? = null,
 ) {
   Row(
     modifier = modifier,
     verticalAlignment = Alignment.CenterVertically
   ) {
-    ControlsButton(
-      icon = Icons.AutoMirrored.Default.ArrowBack,
-      onClick = onBackClick
-    )
+    if (onBackClick != null) {
+      ControlsButton(
+        icon = Icons.AutoMirrored.Default.ArrowBack,
+        onClick = onBackClick
+      )
+    }
     Text(
       mediaTitle,
       maxLines = 1,

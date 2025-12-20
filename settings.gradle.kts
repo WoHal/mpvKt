@@ -17,9 +17,14 @@ dependencyResolutionManagement {
     google()
     maven(url = "https://www.jitpack.io")
     mavenCentral()
+
+    flatDir {
+      dirs("aars")
+    }
   }
 }
 
 rootProject.name = "mpvKt"
 include(":library")
+include(":AutoMaterial3")
 include(":sample")

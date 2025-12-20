@@ -299,11 +299,9 @@ abstract class BasePlayerActivity : ComponentActivity() {
     val secondarySubDelay = getDelay(subtitlesPreferences.defaultSecondarySubDelay.get(), state?.secondarySubDelay)
     val audioDelay = getDelay(audioPreferences.defaultAudioDelay.get(), state?.audioDelay)
     state?.let {
-      player?.apply {
-        sid = it.sid
-        secondarySid = it.secondarySid
-        aid = it.aid
-      }
+      player.sid = it.sid
+      player.secondarySid = it.secondarySid
+      player.aid = it.aid
       MPVLib.setPropertyDouble("sub-delay", subDelay)
       MPVLib.setPropertyDouble("secondary-sub-delay", secondarySubDelay)
       MPVLib.setPropertyDouble("speed", it.playbackSpeed)
@@ -326,37 +324,8 @@ abstract class BasePlayerActivity : ComponentActivity() {
     )
   }
 
-  override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-    when (keyCode) {
-      KeyEvent.KEYCODE_VOLUME_UP -> {
-        playerViewModel.changeVolumeBy(1)
-        playerViewModel.displayVolumeSlider()
-      }
-
-      KeyEvent.KEYCODE_VOLUME_DOWN -> {
-        playerViewModel.changeVolumeBy(-1)
-        playerViewModel.displayVolumeSlider()
-      }
-
-      KeyEvent.KEYCODE_DPAD_RIGHT -> playerViewModel.handleLeftDoubleTap()
-      KeyEvent.KEYCODE_DPAD_LEFT -> playerViewModel.handleRightDoubleTap()
-      KeyEvent.KEYCODE_SPACE -> playerViewModel.pauseUnpause()
-      KeyEvent.KEYCODE_MEDIA_STOP -> finishAndRemoveTask()
-
-      KeyEvent.KEYCODE_MEDIA_REWIND -> playerViewModel.handleLeftDoubleTap()
-      KeyEvent.KEYCODE_MEDIA_FAST_FORWARD -> playerViewModel.handleRightDoubleTap()
-
-      // other keys should be bound by the user in input.conf ig
-      else -> {
-        event?.let { player?.onKey(it) }
-        super.onKeyDown(keyCode, event)
-      }
-    }
-    return true
-  }
-
   override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-    if (player != null && player!!.onKey(event!!)) return true
+    if (player.onKey(event!!)) return true
     return super.onKeyUp(keyCode, event)
   }
 

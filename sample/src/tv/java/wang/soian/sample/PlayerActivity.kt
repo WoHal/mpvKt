@@ -2,8 +2,10 @@ package wang.soian.sample
 
 import live.mehiz.mpvkt.ui.player.PlayerActivity
 import live.mehiz.mpvkt.model.MPVPlayerItem
+import live.mehiz.mpvkt.ui.player.MPVView
 import timber.log.Timber
-class VideoPlayerActivity : PlayerActivity() {
+
+open class VideoPlayerActivity : PlayerActivity() {
   override lateinit var currentPlayerItem: MPVPlayerItem
   override fun initCurrentPlayerItem() {
     currentPlayerItem = MPVPlayerItem(

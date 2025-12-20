@@ -17,6 +17,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Rational
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.compose.setContent
@@ -425,5 +426,31 @@ abstract class PlayerActivity : BasePlayerActivity() {
       PlayerOrientation.ReverseLandscape -> ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
       PlayerOrientation.SensorLandscape -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
     }
+  }
+  override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+    when (keyCode) {
+      KeyEvent.KEYCODE_VOLUME_UP -> {
+        playerViewModel.changeVolumeBy(1)
+        playerViewModel.displayVolumeSlider()
+      }
+
+      KeyEvent.KEYCODE_VOLUME_DOWN -> {
+        playerViewModel.changeVolumeBy(-1)
+        playerViewModel.displayVolumeSlider()
+      }
+
+      KeyEvent.KEYCODE_SPACE -> playerViewModel.pauseUnpause()
+      KeyEvent.KEYCODE_MEDIA_STOP -> finishAndRemoveTask()
+
+      KeyEvent.KEYCODE_MEDIA_REWIND -> playerViewModel.handleLeftDoubleTap()
+      KeyEvent.KEYCODE_MEDIA_FAST_FORWARD -> playerViewModel.handleRightDoubleTap()
+
+      // other keys should be bound by the user in input.conf ig
+      else -> {
+        event?.let { player.onKey(it) }
+        super.onKeyDown(keyCode, event)
+      }
+    }
+    return true
   }
 }

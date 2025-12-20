@@ -1,41 +1,34 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.compose.compiler)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "wang.soian.sample"
+    namespace = "wang.soian.automaterial3"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "wang.soian.sample"
         minSdk = 21
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     flavorDimensions += "device"
     productFlavors {
         create("phone") {
             dimension = "device"
-            applicationIdSuffix = ".phone"
         }
-      create("tv") {
-        dimension = "device"
-        applicationIdSuffix = ".tv"
-      }
+        create("tv") {
+            dimension = "device"
+        }
     }
 
     buildFeatures {
         compose = true
-        buildConfig = true
     }
 
     buildTypes {
@@ -57,17 +50,13 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":library"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
 
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.material3.android)
-    implementation(libs.androidx.appcompat)
 
-    implementation(libs.timber)
+    "phoneImplementation"(libs.androidx.material3.android)
 
-    implementation(platform(libs.koin.bom))
-    implementation(libs.bundles.koin)
-  implementation(libs.androidx.navigation.compose)
+    "tvImplementation"(libs.androidx.tv.foundation)
+    "tvImplementation"(libs.androidx.tv.material3)
 }
