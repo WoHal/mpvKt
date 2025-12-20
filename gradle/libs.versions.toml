@@ -29,8 +29,10 @@ androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runt
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
 androidx-documentfile = { group = "androidx.documentfile", name = "documentfile", version = "1.1.0" }
 
-mpv-lib = "io.github.abdallahmehiz:mpv-android-lib:0.1.9"
+mpv-lib = "io.github.wohal:mpv-android-lib:0.2.0"
 seeker = "com.github.abdallahmehiz:seeker:2.0.1"
+
+timber = "com.jakewharton.timber:timber:5.0.1"
 
 material = "com.google.android.material:material:1.14.0-alpha05"
 
@@ -69,6 +71,7 @@ compose-navigation3 = ["androidx-navigation3-runtime", "androidx-navigation3-ui"
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version = "2.2.20-2.0.3" }
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }

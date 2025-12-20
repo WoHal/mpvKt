@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "mpvKt"
-include(":app")
+include(":library")
+include(":sample")
