@@ -1,6 +1,5 @@
 package live.mehiz.mpvkt.ui.player.controls
 
-import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.FiniteAnimationSpec
@@ -13,6 +12,7 @@ import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
+import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
@@ -21,8 +21,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,10 +48,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -60,7 +64,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import `is`.xyz.mpv.MPVLib
 import `is`.xyz.mpv.Utils
 import kotlinx.collections.immutable.persistentListOf
@@ -74,21 +78,21 @@ import live.mehiz.mpvkt.preferences.preference.collectAsState
 import live.mehiz.mpvkt.preferences.preference.deleteAndGet
 import live.mehiz.mpvkt.preferences.preference.minusAssign
 import live.mehiz.mpvkt.preferences.preference.plusAssign
-import live.mehiz.mpvkt.ui.custombuttons.getButtons
 import live.mehiz.mpvkt.ui.player.Decoder.Companion.getDecoderFromValue
 import live.mehiz.mpvkt.ui.player.Panels
-import live.mehiz.mpvkt.ui.player.PlayerActivity
 import live.mehiz.mpvkt.ui.player.PlayerUpdates
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.Sheets
-import live.mehiz.mpvkt.ui.player.VideoAspect
+import live.mehiz.mpvkt.ui.player.collectAsState
 import live.mehiz.mpvkt.ui.player.controls.components.MultipleSpeedPlayerUpdate
 import live.mehiz.mpvkt.ui.player.controls.components.SeekbarWithTimers
 import live.mehiz.mpvkt.ui.player.controls.components.TextPlayerUpdate
 import live.mehiz.mpvkt.ui.player.controls.components.sheets.toFixed
+import live.mehiz.mpvkt.ui.player.modifier.handleDPadKeyEvents
 import live.mehiz.mpvkt.ui.theme.playerRippleConfiguration
 import live.mehiz.mpvkt.ui.theme.spacing
 import org.koin.compose.koinInject
+import timber.log.Timber
 import kotlin.math.abs
 
 @Suppress("CompositionLocalAllowlist")
@@ -102,12 +106,13 @@ fun PlayerControls(
   modifier: Modifier = Modifier,
   onBackPress: () -> Unit,
 ) {
+  val focusManager = LocalFocusManager.current
   val focusRequester = remember { FocusRequester() }
-  val focusInteraction = remember { MutableInteractionSource() }
+  val focusInteractionSource = remember { MutableInteractionSource() }
   val spacing = MaterialTheme.spacing
   val playerPreferences = koinInject<PlayerPreferences>()
-  val interactionSource = remember { MutableInteractionSource() }
   val controlsShown by viewModel.controlsShown.collectAsState()
+  val sheetShown by viewModel.sheetShown.collectAsState()
   val pausedForCache by MPVLib.propBoolean["paused-for-cache"].collectAsState()
   val paused by MPVLib.propBoolean["pause"].collectAsState()
   val duration by MPVLib.propInt["duration"].collectAsState()
@@ -121,6 +126,11 @@ fun PlayerControls(
   val decoder by remember { derivedStateOf { getDecoderFromValue(mpvDecoder ?: "auto") } }
   val playerTimeToDisappear by playerPreferences.playerTimeToDisappear.collectAsState()
   val chapters by viewModel.chapters.collectAsState(persistentListOf())
+
+  val subtitles by viewModel.subtitleTracks.collectAsState(persistentListOf())
+  val audioTracks by viewModel.audioTracks.collectAsState(persistentListOf())
+  val speedPresets by playerPreferences.speedPresets.collectAsState()
+
   val onOpenSheet: (Sheets) -> Unit = {
     viewModel.sheetShown.update { _ -> it }
     if (it == Sheets.None) {
@@ -156,10 +166,6 @@ fun PlayerControls(
     animationSpec = playerControlsExitAnimationSpec(),
     label = "controls_transparent_overlay",
   )
-  GestureHandler(
-    viewModel = viewModel,
-    interactionSource = interactionSource,
-  )
   CompositionLocalProvider(
     LocalRippleConfiguration provides playerRippleConfiguration,
     LocalPlayerButtonsClickEvent provides { resetControls = !resetControls },
@@ -169,8 +175,7 @@ fun PlayerControls(
       LocalLayoutDirection provides LayoutDirection.Ltr,
     ) {
       ConstraintLayout(
-        modifier = modifier
-          .fillMaxSize()
+        modifier = modifier.fillMaxSize()
           .background(
             Brush.verticalGradient(
               Pair(0f, Color.Black),
@@ -180,7 +185,19 @@ fun PlayerControls(
             ),
             alpha = transparentOverlay,
           )
-          .padding(horizontal = MaterialTheme.spacing.medium),
+          .padding(horizontal = MaterialTheme.spacing.medium)
+          .focusRequester(focusRequester)
+          .focusable()
+          .handleDPadKeyEvents(
+            onLeft = {
+              viewModel.showControls()
+              focusManager.moveFocus(FocusDirection.Left)
+            },
+            onRight = {
+              viewModel.showControls()
+              focusManager.moveFocus(FocusDirection.Right)
+            }
+          ),
       ) {
         val (topControls, bottomControls) = createRefs()
         val playerPauseButton = createRef()
@@ -199,6 +216,7 @@ fun PlayerControls(
           viewModel.playerUpdate.update { PlayerUpdates.None }
         }
 
+        // top left status
         AnimatedVisibility(
           currentPlayerUpdate !is PlayerUpdates.None,
           enter = fadeIn(playerControlsEnterAnimationSpec()),
@@ -215,7 +233,6 @@ fun PlayerControls(
             else -> {}
           }
         }
-
 
         // Top
         val mediaTitle by MPVLib.propString["media-title"].collectAsState()
@@ -248,7 +265,7 @@ fun PlayerControls(
           )
         }
 
-        // Seeking Text
+        // Play Button, Seeking Text
         AnimatedVisibility(
           visible = (controlsShown || gestureSeekAmount != null) || pausedForCache == true,
           enter = fadeIn(playerControlsEnterAnimationSpec()),
@@ -263,6 +280,7 @@ fun PlayerControls(
           val showLoadingCircle by playerPreferences.showLoadingCircle.collectAsState()
           val icon = AnimatedImageVector.animatedVectorResource(R.drawable.anim_play_to_pause)
           val interaction = remember { MutableInteractionSource() }
+          val isFocus by focusInteractionSource.collectIsFocusedAsState()
           when {
             gestureSeekAmount != null -> {
               Text(
@@ -287,19 +305,33 @@ fun PlayerControls(
               )
             }
 
-            controlsShown -> Image(
-              painter = rememberAnimatedVectorPainter(icon, paused == false),
-              modifier = Modifier
-                .size(96.dp)
-                .clip(CircleShape)
-                .clickable(
-                  interaction,
-                  ripple(),
-                  onClick = viewModel::pauseUnpause,
-                )
-                .padding(MaterialTheme.spacing.medium),
-              contentDescription = null,
-            )
+            controlsShown -> {
+              val focusRequester = remember { FocusRequester() }
+              val focusInteractionSource = remember { MutableInteractionSource() }
+              Image(
+                painter = rememberAnimatedVectorPainter(icon, paused == false),
+                modifier = Modifier
+                  .size(96.dp)
+                  .clip(CircleShape)
+                  .clickable(
+                    interaction,
+                    ripple(),
+                    onClick = viewModel::pauseUnpause,
+                  )
+                  .background(color = if (isFocus) Color.White.copy(alpha = 0.35f) else Color.Transparent)
+                  .padding(MaterialTheme.spacing.medium)
+                  .focusRequester(focusRequester)
+                  .focusable(interactionSource = focusInteractionSource),
+                contentDescription = null,
+              )
+            }
+          }
+
+          LaunchedEffect(controlsShown) {
+            if (controlsShown) {
+              focusRequester.requestFocus()
+              focusManager.moveFocus(FocusDirection.Next)
+            }
           }
         }
 
@@ -335,13 +367,10 @@ fun PlayerControls(
           val showChaptersButton by playerPreferences.showChaptersButton.collectAsState()
 
           Row(
-            modifier = Modifier.fillMaxWidth().focusable(
-              enabled = controlsShown,
-              interactionSource = focusInteraction
-            )
+            modifier = Modifier.fillMaxWidth(),
           ) {
             SeekbarWithTimers(
-              modifier = Modifier.weight(2f),
+              modifier = Modifier.weight(1f).focusProperties { canFocus = false },
               position = position?.toFloat() ?: 0f,
               duration = duration?.toFloat() ?: 0f,
               remaining = remaining ?: 0f,
@@ -358,9 +387,7 @@ fun PlayerControls(
             )
 
             BottomPlayerControls(
-              modifier = Modifier.weight(1f),
-              focusRequester = focusRequester,
-              focusInteraction = focusInteraction,
+              modifier = Modifier.padding(start = 50.dp),
               // speed
               playbackSpeed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
               onPlaybackSpeedChange = {
@@ -385,57 +412,91 @@ fun PlayerControls(
             )
           }
         }
+
+        // more settings
+        AnimatedVisibility(
+          visible = sheetShown != Sheets.None,
+          enter = slideInVertically(playerControlsEnterAnimationSpec()) +
+            fadeIn(playerControlsEnterAnimationSpec()),
+          exit = slideOutVertically(playerControlsExitAnimationSpec()) +
+            fadeOut(playerControlsExitAnimationSpec()),
+          modifier = Modifier.constrainAs(playerPauseButton) {
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+          },
+        ) {
+          PlayerSheetControls(
+            modifier = Modifier.fillMaxSize(),
+            // decoder
+            decoder = decoder,
+            onUpdateDecoder = { MPVLib.setPropertyString("hwdec", it.value) },
+            // speed
+            playbackSpeed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
+            playbackSpeedPresets = speedPresets,
+            onPlaybackSpeedChange = { MPVLib.setPropertyFloat("speed", it.toFixed(2)) },
+            // subtitle
+            subtitles = subtitles,
+            onSelectSubtitle = viewModel::selectSub,
+            // audio
+            audioTracks = audioTracks,
+            onSelectAudio = { id ->
+              if (id < 0) {
+                MPVLib.setPropertyBoolean("aid", false)
+              } else if (MPVLib.getPropertyInt("aid") != id) {
+                MPVLib.setPropertyInt("aid", id)
+              }
+            },
+
+            onDismissRequest = { onOpenSheet(Sheets.None) },
+          )
+        }
       }
     }
-    val sheetShown by viewModel.sheetShown.collectAsState()
-    val subtitles by viewModel.subtitleTracks.collectAsState(persistentListOf())
-    val audioTracks by viewModel.audioTracks.collectAsState(persistentListOf())
-    val sleepTimerTimeRemaining by viewModel.remainingTime.collectAsState()
-    val speedPresets by playerPreferences.speedPresets.collectAsState()
-    PlayerSheets(
-      sheetShown = sheetShown,
-      subtitles = subtitles,
-      onAddSubtitle = viewModel::addSubtitle,
-      onSelectSubtitle = viewModel::selectSub,
-      audioTracks = audioTracks,
-      onAddAudio = viewModel::addAudio,
-      onSelectAudio = {
-        if (MPVLib.getPropertyInt("aid") == it.id) {
-          MPVLib.setPropertyBoolean("aid", false)
-        } else {
-          MPVLib.setPropertyInt("aid", it.id)
-        }
-      },
-      chapter = chapters.getOrNull(currentChapter ?: 0),
-      chapters = chapters,
-      onSeekToChapter = {
-        MPVLib.setPropertyInt("chapter", it)
-        viewModel.unpause()
-      },
-      decoder = decoder,
-      onUpdateDecoder = { MPVLib.setPropertyString("hwdec", it.value) },
-      speed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
-      onSpeedChange = { MPVLib.setPropertyFloat("speed", it.toFixed(2)) },
-      onMakeDefaultSpeed = { playerPreferences.defaultSpeed.set(it.toFixed(2)) },
-      onAddSpeedPreset = { playerPreferences.speedPresets += it.toFixed(2).toString() },
-      onRemoveSpeedPreset = { playerPreferences.speedPresets -= it.toFixed(2).toString() },
-      onResetSpeedPresets = playerPreferences.speedPresets::delete,
-      speedPresets = speedPresets.map { it.toFloat() }.sorted(),
-      onResetDefaultSpeed = {
-        MPVLib.setPropertyFloat("speed", playerPreferences.defaultSpeed.deleteAndGet().toFixed(2))
-      },
-
-      sleepTimerTimeRemaining = sleepTimerTimeRemaining,
-      onStartSleepTimer = viewModel::startTimer,
-      buttons = emptyList<CustomButtonEntity>().toImmutableList(),
-      onOpenPanel = onOpenPanel,
-      onDismissRequest = { onOpenSheet(Sheets.None) },
-    )
-    val panel by viewModel.panelShown.collectAsState()
-    PlayerPanels(
-      panelShown = panel,
-      onDismissRequest = { onOpenPanel(Panels.None) },
-    )
+//    val subtitles by viewModel.subtitleTracks.collectAsState(persistentListOf())
+//    val audioTracks by viewModel.audioTracks.collectAsState(persistentListOf())
+//    val sleepTimerTimeRemaining by viewModel.remainingTime.collectAsState()
+//    val speedPresets by playerPreferences.speedPresets.collectAsState()
+//    PlayerSheets(
+//      sheetShown = sheetShown,
+//      subtitles = subtitles,
+//      onAddSubtitle = viewModel::addSubtitle,
+//      onSelectSubtitle = viewModel::selectSub,
+//      audioTracks = audioTracks,
+//      onAddAudio = viewModel::addAudio,
+//      onSelectAudio = {
+//        if (MPVLib.getPropertyInt("aid") == it.id) {
+//          MPVLib.setPropertyBoolean("aid", false)
+//        } else {
+//          MPVLib.setPropertyInt("aid", it.id)
+//        }
+//      },
+//      chapter = chapters.getOrNull(currentChapter ?: 0),
+//      chapters = chapters,
+//      onSeekToChapter = {
+//        MPVLib.setPropertyInt("chapter", it)
+//        viewModel.unpause()
+//      },
+//      decoder = decoder,
+//      onUpdateDecoder = { MPVLib.setPropertyString("hwdec", it.value) },
+//      speed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
+//      onSpeedChange = { MPVLib.setPropertyFloat("speed", it.toFixed(2)) },
+//      onMakeDefaultSpeed = { playerPreferences.defaultSpeed.set(it.toFixed(2)) },
+//      onAddSpeedPreset = { playerPreferences.speedPresets += it.toFixed(2).toString() },
+//      onRemoveSpeedPreset = { playerPreferences.speedPresets -= it.toFixed(2).toString() },
+//      onResetSpeedPresets = playerPreferences.speedPresets::delete,
+//      speedPresets = speedPresets.map { it.toFloat() }.sorted(),
+//      onResetDefaultSpeed = {
+//        MPVLib.setPropertyFloat("speed", playerPreferences.defaultSpeed.deleteAndGet().toFixed(2))
+//      },
+//
+//      sleepTimerTimeRemaining = sleepTimerTimeRemaining,
+//      onStartSleepTimer = viewModel::startTimer,
+//      buttons = emptyList<CustomButtonEntity>().toImmutableList(),
+//      onOpenPanel = onOpenPanel,
+//      onDismissRequest = { onOpenSheet(Sheets.None) },
+//    )
   }
 }
 

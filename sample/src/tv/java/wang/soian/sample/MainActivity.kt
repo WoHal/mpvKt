@@ -38,6 +38,7 @@ class MainActivity : VideoPlayerActivity() {
                 ) {
                   Button(
                     onClick = {
+//                      loadPlayer()
                       mainNavController.navigate("video")
                     }
                   ) {

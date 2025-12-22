@@ -7,6 +7,7 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -33,6 +34,7 @@ import kotlinx.serialization.json.Json
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.database.MpvKtDatabase
 import live.mehiz.mpvkt.database.entities.CustomButtonEntity
+import live.mehiz.mpvkt.databinding.PlayerLayoutBinding
 import live.mehiz.mpvkt.preferences.AudioPreferences
 import live.mehiz.mpvkt.preferences.GesturePreferences
 import live.mehiz.mpvkt.preferences.PlayerPreferences
@@ -205,6 +207,14 @@ class PlayerViewModel(
   fun hideControls() {
     activity.windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
     _controlsShown.update { false }
+  }
+
+  fun showSheet() {
+    sheetShown.update { Sheets.More }
+  }
+
+  fun hideSheet() {
+    sheetShown.update { Sheets.None }
   }
 
   fun hideSeekBar() {

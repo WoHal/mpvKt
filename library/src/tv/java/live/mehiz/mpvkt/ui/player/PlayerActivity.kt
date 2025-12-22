@@ -42,10 +42,11 @@ import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
 import timber.log.Timber
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 abstract class PlayerActivity : BasePlayerActivity() {
   abstract fun initCurrentPlayerItem()
-  abstract fun onPlayEnd()
 
   override val playerObserver = object : MPVLib.EventObserver {
     // a bunch of observers
@@ -161,18 +162,9 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
     override fun onDestroy() {
       Timber.d("Exiting")
-      audioFocusRequest?.let {
-        AudioManagerCompat.abandonAudioFocusRequest(audioManager, it)
-      }
-      audioFocusRequest = null
-      mediaSession?.release()
 
-      player.isExiting = true
-      if (isFinishing) {
-        MPVLib.command("stop")
-      }
-      MPVLib.removeObserver(playerObserver)
-      MPVLib.destroy()
+      releaseAudio()
+      releaseMediaSession()
     }
   }
 
@@ -192,13 +184,43 @@ abstract class PlayerActivity : BasePlayerActivity() {
     setupMPV()
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+
+    player.isExiting = true
+    if (isFinishing) {
+      MPVLib.command("stop")
+    }
+    MPVLib.removeObserver(playerObserver)
+
+    MPVLib.destroy()
+  }
+
   override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
     runOnUiThread {
       when (keyCode) {
-        KeyEvent.KEYCODE_DPAD_UP -> playerViewModel.showControls()
+        KeyEvent.KEYCODE_BACK -> {
+          if (playerViewModel.sheetShown.value != Sheets.None) {
+            playerViewModel.hideSheet()
+          } else if (playerViewModel.controlsShown.value) {
+            playerViewModel.hideControls()
+          } else {
+            event?.let { player.onKey(it) }
+            super.onKeyDown(keyCode, event)
+          }
+        }
+        KeyEvent.KEYCODE_DPAD_UP -> {
+          if (!playerViewModel.controlsShown.value) {
+            playerViewModel.showControls()
+          } else if (playerViewModel.sheetShown.value != Sheets.None) {
+            playerViewModel.hideSheet()
+          }
+        }
         KeyEvent.KEYCODE_DPAD_DOWN -> {
           if (playerViewModel.controlsShown.value) {
             playerViewModel.hideControls()
+          } else if (playerViewModel.sheetShown.value == Sheets.None) {
+            playerViewModel.showSheet()
           }
         }
         KeyEvent.KEYCODE_DPAD_CENTER -> {
@@ -209,14 +231,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
           }
           playerViewModel.pauseUnpause()
         }
-        KeyEvent.KEYCODE_DPAD_RIGHT -> {
-          val pos = playerViewModel.pos
-          val duration = playerViewModel.duration
-          Timber.d("pos: $pos, duration: $duration")
-          if (pos != null && duration != null) {
-            playerViewModel.seekTo(pos + 10)
-          }
-        }
+        KeyEvent.KEYCODE_DPAD_RIGHT -> playerViewModel.handleRightDoubleTap()
         KeyEvent.KEYCODE_DPAD_LEFT -> playerViewModel.handleLeftDoubleTap()
 
         // other keys should be bound by the user in input.conf ig

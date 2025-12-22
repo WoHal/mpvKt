@@ -45,8 +45,6 @@ import timber.log.Timber
 
 abstract class PlayerActivity : BasePlayerActivity() {
   abstract fun initCurrentPlayerItem()
-  abstract fun onPlayEnd()
-
   private var pipRect: Rect? = null
   val isPipSupported by lazy {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -101,7 +99,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
             if (playerPreferences.closeAfterReachingEndOfVideo.get()) {
               finishAndRemoveTask()
             } else {
-              playerViewModel.seekTo(0)
               onPlayEnd()
             }
           }

@@ -1,9 +1,11 @@
 package wang.soian.sample
 
 import live.mehiz.mpvkt.ui.player.PlayerActivity
+import live.mehiz.mpvkt.BasePlayerEvent
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import timber.log.Timber
-class VideoPlayerActivity : PlayerActivity() {
+
+class VideoPlayerActivity : PlayerActivity(), BasePlayerEvent {
   override lateinit var currentPlayerItem: MPVPlayerItem
   override fun initCurrentPlayerItem() {
     currentPlayerItem = MPVPlayerItem(
@@ -14,6 +16,7 @@ class VideoPlayerActivity : PlayerActivity() {
   }
 
   override fun onPlayEnd() {
+    super.onPlayEnd()
     Timber.v("play end")
   }
 }

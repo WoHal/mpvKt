@@ -133,6 +133,8 @@ dependencies {
   implementation(libs.mediasession)
   implementation(libs.saveable)
 
+  "tvImplementation"(libs.androidx.tv.material3)
+
   implementation(libs.mpv.lib)
   implementation(libs.timber)
 

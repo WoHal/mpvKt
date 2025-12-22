@@ -46,13 +46,13 @@ import timber.log.Timber
 import java.io.File
 import java.util.UUID
 
-abstract class BasePlayerActivity : ComponentActivity() {
+abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
   abstract val playerObserver: MPVLib.EventObserver
   abstract val playerHelper: BasePlayerHelper
   abstract var currentPlayerItem: MPVPlayerItem
 
-  val playerLayoutBinding: PlayerLayoutBinding by lazy { PlayerLayoutBinding.inflate(layoutInflater) }
-  val player: MPVView by lazy { playerLayoutBinding.player }
+  lateinit var playerLayoutBinding: PlayerLayoutBinding
+  lateinit var player: MPVView
 
   val playerViewModel: PlayerViewModel by viewModels { PlayerViewModelProviderFactory(this as PlayerActivity) }
   private val playbackStateRepository: PlaybackStateRepository by inject()
@@ -69,9 +69,24 @@ abstract class BasePlayerActivity : ComponentActivity() {
   var audioFocusRequest: AudioFocusRequestCompat? = null
   private var restoreAudioFocus: () -> Unit = {}
 
+  fun loadPlayer() {
+    playerLayoutBinding = PlayerLayoutBinding.inflate(layoutInflater)
+    player = playerLayoutBinding.player
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    loadPlayer()
+  }
+
   override fun finish() {
     setReturnIntent()
     super.finish()
+  }
+
+  override fun onPlayEnd() {
+    playerViewModel.seekTo(0)
   }
 
   private fun copyMPVAssets() {
@@ -104,6 +119,12 @@ abstract class BasePlayerActivity : ComponentActivity() {
       if (it == AudioManager.AUDIOFOCUS_REQUEST_FAILED) return@let
       audioFocusRequest = request
     }
+  }
+  fun releaseAudio() {
+    audioFocusRequest?.let {
+      AudioManagerCompat.abandonAudioFocusRequest(audioManager, it)
+    }
+    audioFocusRequest = null
   }
 
   private fun copyMPVConfigFiles() {
@@ -423,6 +444,10 @@ abstract class BasePlayerActivity : ComponentActivity() {
       )
       isActive = true
     }
+  }
+
+  fun releaseMediaSession() {
+    mediaSession?.release()
   }
 
   companion object {
