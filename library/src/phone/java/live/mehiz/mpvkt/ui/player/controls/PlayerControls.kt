@@ -517,7 +517,7 @@ fun PlayerControls(
             onPipClick = {
               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 activity.enterPictureInPictureMode(activity.createPipParams())
-              } else {
+              } else if (Build.VERSION.SDK_INT >= 24) {
                 activity.enterPictureInPictureMode()
               }
             },

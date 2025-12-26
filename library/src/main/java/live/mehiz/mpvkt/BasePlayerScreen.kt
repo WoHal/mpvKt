@@ -1,6 +1,5 @@
 package live.mehiz.mpvkt
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -8,20 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.constraintlayout.compose.Visibility
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.databinding.PlayerLayoutBinding
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
+import live.mehiz.mpvkt.ui.player.Sheets
 import live.mehiz.mpvkt.ui.player.controls.PlayerControls
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
-import timber.log.Timber
-import androidx.core.view.isNotEmpty
-import kotlinx.coroutines.flow.update
-import live.mehiz.mpvkt.ui.player.Sheets
 
+@Suppress("ViewModelForwarding")
 @Composable
 fun BasePlayerScreen(
   binding: PlayerLayoutBinding,
@@ -64,7 +61,7 @@ fun BasePlayerScreen(
   )
 
   AndroidView(
-    modifier = Modifier.fillMaxSize(),
+    modifier = modifier.fillMaxSize(),
     factory = { context ->
       FrameLayout(context).apply {
         addView(binding.root)
@@ -80,9 +77,9 @@ fun BasePlayerScreen(
           setContent {
             MpvKtTheme {
               PlayerControls(
+                modifier = Modifier.fillMaxSize(),
                 viewModel = viewModel,
                 onBackPress = onBackPress,
-                modifier = modifier,
               )
             }
           }

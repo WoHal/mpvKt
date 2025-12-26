@@ -47,20 +47,13 @@ android {
   }
 
   buildTypes {
-    named("release") {
+    release {
       isMinifyEnabled = true
       isShrinkResources = false
       proguardFiles(
         getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro",
       )
-    }
-    create("preview") {
-      initWith(getByName("release"))
-
-      signingConfig = signingConfigs["debug"]
-    }
-    named("debug") {
     }
   }
   compileOptions {
@@ -82,6 +75,11 @@ android {
     resources {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
+  }
+
+  lint {
+    checkOnly += "NewApi" + "HandlerLeak"
+    baseline = file("lint.xml")
   }
 //  val abiCodes = mapOf(
 //    "armeabi-v7a" to 1,
@@ -113,8 +111,6 @@ room {
 }
 
 dependencies {
-  implementation(project(":AutoMaterial3"))
-
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)

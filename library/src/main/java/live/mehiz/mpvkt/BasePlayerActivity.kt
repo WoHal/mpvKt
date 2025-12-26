@@ -5,7 +5,6 @@ import android.content.res.Configuration
 import android.media.AudioManager
 import android.media.session.MediaSession
 import android.media.session.PlaybackState
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -39,13 +38,11 @@ import live.mehiz.mpvkt.ui.player.PlayerActivity
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.PlayerViewModelProviderFactory
 import live.mehiz.mpvkt.ui.player.SingleActionGesture
-import live.mehiz.mpvkt.ui.player.openContentFd
-import live.mehiz.mpvkt.ui.player.resolveUri
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import java.io.File
-import java.util.UUID
 
+@Suppress("TooManyFunctions")
 abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
   abstract val playerObserver: MPVLib.EventObserver
   abstract val playerHelper: BasePlayerHelper
@@ -213,8 +210,7 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
   private val audioFocusChangeListener = AudioManager.OnAudioFocusChangeListener {
     when (it) {
       AudioManager.AUDIOFOCUS_LOSS,
-      AudioManager.AUDIOFOCUS_LOSS_TRANSIENT,
-        -> {
+      AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
         val oldRestore = restoreAudioFocus
         val wasPlayerPaused = playerViewModel.paused ?: false
         playerViewModel.pause()
@@ -242,31 +238,30 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
     }
   }
 
-  fun setIntentExtras(extras: Bundle?) {
-    if (extras == null) return
-
-    extras.getString("title")?.let { MPVLib.setPropertyString("force-media-title", it) }
-    MPVLib.setPropertyInt("time-pos", extras.getInt("position", 0) / 1000)
-
-    // subtitles
-    if (extras.containsKey("subs")) {
-      val subList = Utils.getParcelableArray<Uri>(extras, "subs")
-      val subsToEnable = Utils.getParcelableArray<Uri>(extras, "subs.enable")
-
-      for (suburi in subList) {
-        val subfile = suburi.resolveUri(this) ?: continue
-        val flag = if (subsToEnable.any { it == suburi }) "select" else "auto"
-
-        Timber.v("Adding subtitles from intent extras: $subfile")
-        MPVLib.command("sub-add", subfile, flag)
-      }
+  fun setRequestHeaders(playerItem: MPVPlayerItem) {
+    if (playerItem.userAgent.isNotEmpty()) {
+      MPVLib.setPropertyString("user-agent", playerItem.userAgent)
     }
 
-    extras.getStringArray("headers")?.let { headers ->
-      if (headers[0].startsWith("User-Agent", true)) MPVLib.setPropertyString("user-agent", headers[1])
-      val headersString = headers.asSequence().drop(2).chunked(2).associate { it[0] to it[1] }
-        .map { "${it.key}: ${it.value.replace(",", "\\,")}" }.joinToString(",")
+    if (playerItem.headers.isNotEmpty()) {
+      val headersString = playerItem.headers.map {
+        "${it.key}: ${it.value.replace(",", "\\,")}"
+      }.joinToString(",")
       MPVLib.setPropertyString("http-header-fields", headersString)
+    }
+  }
+
+  fun setMpvExtras(playerItem: MPVPlayerItem) {
+    MPVLib.setPropertyString("force-media-title", playerItem.mediaTitle)
+    MPVLib.setPropertyInt("time-pos", playerItem.position / 1000)
+
+    playerItem.audioFiles.forEach { url ->
+      playerViewModel.addAudio(url.toUri())
+    }
+
+    playerItem.subtitles.forEach { subtitle ->
+      Timber.v("Adding subtitles from intent extras: ${subtitle.url}")
+      MPVLib.command("sub-add", subtitle.url, if (subtitle.enable) "select" else "auto")
     }
   }
 
@@ -285,10 +280,9 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
     if (mediaId.isBlank()) return
     lifecycleScope.launch(Dispatchers.IO) {
       val oldState = playbackStateRepository.getVideoDataById(mediaId)
-      Timber.d("Saving playback state, saveOnQuit: ${playerPreferences.savePositionOnQuit.get()}, pos: ${playerViewModel.pos}")
       playbackStateRepository.upsert(
         PlaybackStateEntity(
-          mediaId = oldState?.mediaId ?: UUID.randomUUID().toString(),
+          mediaId = oldState?.mediaId ?: currentPlayerItem.mediaId,
           mediaTitle = oldState?.mediaTitle ?: currentPlayerItem.mediaTitle,
           lastPosition = if (playerPreferences.savePositionOnQuit.get()) {
             val pos = playerViewModel.pos ?: 0
@@ -319,6 +313,7 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
     val subDelay = getDelay(subtitlesPreferences.defaultSubDelay.get(), state?.subDelay)
     val secondarySubDelay = getDelay(subtitlesPreferences.defaultSecondarySubDelay.get(), state?.secondarySubDelay)
     val audioDelay = getDelay(audioPreferences.defaultAudioDelay.get(), state?.audioDelay)
+    Timber.d("loaded playback state: $state")
     state?.let {
       player.sid = it.sid
       player.secondarySid = it.secondarySid

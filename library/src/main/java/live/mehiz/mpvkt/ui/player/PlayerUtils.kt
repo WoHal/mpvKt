@@ -3,7 +3,6 @@ package live.mehiz.mpvkt.ui.player
 import android.content.Context
 import android.net.Uri
 import android.os.ParcelFileDescriptor
-import android.util.Log
 import `is`.xyz.mpv.MPVNode
 import `is`.xyz.mpv.Utils
 import kotlinx.serialization.json.Json

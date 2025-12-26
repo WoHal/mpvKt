@@ -29,9 +29,9 @@ import live.mehiz.mpvkt.ui.theme.spacing
 fun TrackList(
   title: String,
   tracks: ImmutableList<TrackNode>,
-  modifier: Modifier = Modifier,
   selector: (TrackNode) -> Boolean,
-  onSelect: (Int) -> Unit,
+  modifier: Modifier = Modifier,
+  onSelect: (Int) -> Unit = {},
 ) {
   Column(
     modifier = modifier,
@@ -80,13 +80,14 @@ fun TrackList(
 fun TrackItem(
   text: String,
   selected: Boolean,
-  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
   focusRequester: FocusRequester = remember { FocusRequester() },
   interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
   val isFocus by interactionSource.collectIsFocusedAsState()
   ListItem(
-    modifier = Modifier
+    modifier = modifier
       .focusRequester(focusRequester)
       .focusable(interactionSource = interactionSource),
     selected = isFocus,

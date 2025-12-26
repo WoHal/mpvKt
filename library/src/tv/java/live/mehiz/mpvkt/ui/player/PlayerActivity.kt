@@ -1,49 +1,22 @@
 package live.mehiz.mpvkt.ui.player
 
-import android.annotation.SuppressLint
-import android.app.PictureInPictureParams
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.ServiceConnection
-import android.content.pm.ActivityInfo
-import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.graphics.Rect
-import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.os.IBinder
-import android.util.Rational
 import android.view.KeyEvent
-import android.view.View
 import android.view.WindowManager
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.media.AudioManagerCompat
 import `is`.xyz.mpv.MPVLib
 import `is`.xyz.mpv.MPVNode
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.BasePlayerActivity
 import live.mehiz.mpvkt.BasePlayerHelper
-import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.model.MPVPlayerItem
-import live.mehiz.mpvkt.ui.theme.MpvKtTheme
 import timber.log.Timber
-import java.util.Timer
-import kotlin.concurrent.schedule
 
 abstract class PlayerActivity : BasePlayerActivity() {
   abstract fun initCurrentPlayerItem()
@@ -104,9 +77,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
       runOnUiThread {
         when (eventId) {
           MPVLib.MpvEvent.MPV_EVENT_FILE_LOADED -> {
-
-            // TODO: set mpv configurations
-            setIntentExtras(intent.extras)
+            setMpvExtras(currentPlayerItem)
 
             MPVLib.setPropertyString("media-title", currentPlayerItem.mediaTitle)
             lifecycleScope.launch(Dispatchers.IO) {
@@ -125,10 +96,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
     override fun onCreated() {
       setupAudio()
       setupMediaSession()
-
-      initCurrentPlayerItem()
-
-      play()
     }
 
     override fun onPaused() {
@@ -142,11 +109,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
 
     override fun onResumed() {
-      playerViewModel.currentVolume.update {
-        audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).also {
-          if (it < playerViewModel.maxVolume) playerViewModel.changeMPVVolumeTo(100)
-        }
-      }
+      playerViewModel.showControls()
     }
 
     override fun onStopped() {
@@ -168,12 +131,15 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
   }
 
-  fun play(playerItem: MPVPlayerItem? = null) {
-    playerItem?.let {
-      currentPlayerItem = it
-    }
+  fun play(playerItem: MPVPlayerItem) {
+    currentPlayerItem = playerItem
+
+    setRequestHeaders(currentPlayerItem)
 
     player.playFile(currentPlayerItem.uri)
+
+    playerViewModel.unpause()
+    playerViewModel.showControls()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -196,6 +162,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     MPVLib.destroy()
   }
 
+  @Suppress("CyclomaticComplexMethod")
   override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
     runOnUiThread {
       when (keyCode) {
@@ -224,11 +191,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
           }
         }
         KeyEvent.KEYCODE_DPAD_CENTER -> {
-          if (playerViewModel.controlsShown.value) {
-            playerViewModel.hideControls()
-          } else {
-            playerViewModel.showControls()
-          }
+          playerViewModel.showControls()
           playerViewModel.pauseUnpause()
         }
         KeyEvent.KEYCODE_DPAD_RIGHT -> playerViewModel.handleRightDoubleTap()

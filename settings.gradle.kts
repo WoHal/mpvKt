@@ -26,5 +26,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "mpvKt"
 include(":library")
-include(":AutoMaterial3")
+//include(":AutoMaterial3")
 include(":sample")

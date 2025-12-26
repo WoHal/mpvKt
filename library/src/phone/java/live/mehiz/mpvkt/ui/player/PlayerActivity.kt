@@ -43,6 +43,7 @@ import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
 import timber.log.Timber
 
+@Suppress("TooManyFunctions")
 abstract class PlayerActivity : BasePlayerActivity() {
   abstract fun initCurrentPlayerItem()
   private var pipRect: Rect? = null
@@ -135,9 +136,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
       runOnUiThread {
         when (eventId) {
           MPVLib.MpvEvent.MPV_EVENT_FILE_LOADED -> {
-
-            // TODO: set mpv configurations
-            setIntentExtras(intent.extras)
+            setMpvExtras(currentPlayerItem)
 
             MPVLib.setPropertyString("media-title", currentPlayerItem.mediaTitle)
             lifecycleScope.launch(Dispatchers.IO) {
@@ -320,9 +319,9 @@ abstract class PlayerActivity : BasePlayerActivity() {
     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     playerLayoutBinding.root.systemUiVisibility =
       View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-        View.SYSTEM_UI_FLAG_LOW_PROFILE
+      View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+      View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+      View.SYSTEM_UI_FLAG_LOW_PROFILE
     windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
     windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
     windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
@@ -368,6 +367,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     return builder.build()
   }
 
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
     if (!isInPictureInPictureMode) {
       pipReceiver?.let {
