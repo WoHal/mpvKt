@@ -84,6 +84,7 @@ import live.mehiz.mpvkt.ui.theme.playerRippleConfiguration
 import live.mehiz.mpvkt.ui.theme.spacing
 import org.koin.compose.koinInject
 import java.util.Timer
+import java.util.TimerTask
 import kotlin.concurrent.schedule
 import kotlin.math.abs
 
@@ -110,13 +111,11 @@ fun PlayerControls(
   val duration by MPVLib.propInt["duration"].collectAsState()
   val position by MPVLib.propInt["time-pos"].collectAsState()
 
-//  val playbackSpeed by MPVLib.propFloat["speed"].collectAsState()
   val gestureSeekAmount by viewModel.gestureSeekAmount.collectAsState()
   var isSeeking by remember { mutableStateOf(false) }
   var resetControls by remember { mutableStateOf(true) }
   var isMovingFocus by remember { mutableStateOf(false) }
 
-//  val currentChapter by MPVLib.propInt["chapter"].collectAsState()
   val mpvDecoder by MPVLib.propString["hwdec-current"].collectAsState()
   val decoder by remember { derivedStateOf { getDecoderFromValue(mpvDecoder ?: "auto") } }
   val playerTimeToDisappear by playerPreferences.playerTimeToDisappear.collectAsState()
@@ -124,7 +123,6 @@ fun PlayerControls(
 
   val subtitles by viewModel.subtitleTracks.collectAsState(persistentListOf())
   val audioTracks by viewModel.audioTracks.collectAsState(persistentListOf())
-//  val speedPresets by playerPreferences.speedPresets.collectAsState()
 
   val onOpenSheet: (Sheets) -> Unit = {
     viewModel.sheetShown.update { _ -> it }
@@ -135,15 +133,8 @@ fun PlayerControls(
       viewModel.panelShown.update { Panels.None }
     }
   }
-//  val onOpenPanel: (Panels) -> Unit = {
-//    viewModel.panelShown.update { _ -> it }
-//    if (it == Panels.None) {
-//      viewModel.showControls()
-//    } else {
-//      viewModel.hideControls()
-//      viewModel.sheetShown.update { Sheets.None }
-//    }
-//  }
+
+  var timerTask by remember { mutableStateOf<TimerTask?>(null) }
 
   LaunchedEffect(
     controlsShown,
@@ -185,35 +176,59 @@ fun PlayerControls(
           .focusable()
           .handleDPadKeyEvents(
             onLeft = {
-              if (controlsShown) {
-                isMovingFocus = true
+              when {
+                controlsShown || sheetShown != Sheets.None -> {
+                  isMovingFocus = true
+                  focusManager.moveFocus(FocusDirection.Left)
+                }
+                else -> viewModel.handleLeftDoubleTap()
               }
-              focusManager.moveFocus(FocusDirection.Left)
             },
             onRight = {
-              if (controlsShown) {
-                isMovingFocus = true
+              when {
+                controlsShown || (sheetShown != Sheets.None) -> {
+                  isMovingFocus = true
+                  focusManager.moveFocus(FocusDirection.Right)
+                }
+                else -> viewModel.handleRightDoubleTap()
               }
-              focusManager.moveFocus(FocusDirection.Right)
             },
             onUp = {
-              focusManager.moveFocus(FocusDirection.Up)
+              when {
+                sheetShown != Sheets.None -> {
+                  focusManager.moveFocus(FocusDirection.Up)
+                }
+                !controlsShown -> {
+                  viewModel.showControls()
+                }
+              }
             },
             onDown = {
-              focusManager.moveFocus(FocusDirection.Down)
+              when {
+                controlsShown -> viewModel.hideControls()
+                sheetShown == Sheets.None -> viewModel.showSheet()
+                sheetShown != Sheets.None -> focusManager.moveFocus(FocusDirection.Down)
+              }
             },
             onBack = {
               focusManager.clearFocus()
-              if (controlsShown) {
-                viewModel.hideControls()
-              } else if (sheetShown != Sheets.None) {
-                viewModel.hideSheet()
-              } else {
-                onBackPress()
+              when {
+                controlsShown -> viewModel.hideControls()
+                sheetShown != Sheets.None -> viewModel.hideSheet()
+                else -> {
+                  viewModel.pause()
+                  onBackPress()
+                }
               }
             },
+            onEnter = {
+              viewModel.showControls()
+              viewModel.pauseUnpause()
+            },
             onKeyUp = {
-              Timer().schedule(2000) {
+              timerTask?.apply { cancel() }
+
+              timerTask = Timer().schedule(2000) {
                 isMovingFocus = false
               }
             }

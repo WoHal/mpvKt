@@ -286,8 +286,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
     enableEdgeToEdge()
 
-    setupMPV()
-
     setContent {
       MpvKtTheme {
         BasePlayerScreen(

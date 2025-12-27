@@ -35,6 +35,7 @@ import live.mehiz.mpvkt.preferences.PlayerPreferences
 import live.mehiz.mpvkt.ui.custombuttons.CustomButtonsUiState
 import live.mehiz.mpvkt.ui.custombuttons.getButtons
 import org.koin.java.KoinJavaComponent.inject
+import timber.log.Timber
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -42,39 +43,21 @@ class PlayerViewModelProviderFactory(
   private val activity: PlayerActivity,
 ) : ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-    return PlayerViewModel(activity) as T
+    val player = MPVView(activity)
+    player.initialize(activity.filesDir.path, activity.cacheDir.path)
+    return PlayerViewModel(activity, player) as T
   }
 }
 
 @Suppress("TooManyFunctions")
 class PlayerViewModel(
   private val activity: PlayerActivity,
+  val player: MPVView,
 ) : ViewModel() {
   private val playerPreferences: PlayerPreferences by inject(PlayerPreferences::class.java)
   private val gesturePreferences: GesturePreferences by inject(GesturePreferences::class.java)
   private val audioPreferences: AudioPreferences by inject(AudioPreferences::class.java)
-
-//  private val mpvKtDatabase: MpvKtDatabase by inject(MpvKtDatabase::class.java)
   private val json: Json by inject(Json::class.java)
-
-//  init {
-//    viewModelScope.launch(Dispatchers.IO) {
-//      try {
-//        val buttons = mpvKtDatabase.customButtonDao().getCustomButtons().first()
-//        buttons.firstOrNull { it.id == playerPreferences.primaryCustomButtonId.get() }?.let {
-//          _primaryButton.update { _ -> it }
-//          // If the button text is not empty, it has been set buy a lua script in which
-//          // case we don't want to override it
-//          if (_primaryButtonTitle.value.isEmpty()) setPrimaryCustomButtonTitle(it)
-//        }
-//        activity.setupCustomButtons(buttons)
-//        _customButtons.update { _ -> CustomButtonsUiState.Success(buttons) }
-//      } catch (e: Exception) {
-//        Timber.e(e.message ?: "Unable to fetch buttons")
-//        _customButtons.update { _ -> CustomButtonsUiState.Error(e.message ?: "Unable to fetch buttons") }
-//      }
-//    }
-//  }
 
   private val _customButtons = MutableStateFlow<CustomButtonsUiState>(CustomButtonsUiState.Loading)
   val customButtons = _customButtons.asStateFlow()

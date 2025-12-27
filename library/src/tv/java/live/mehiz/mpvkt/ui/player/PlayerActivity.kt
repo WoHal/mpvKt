@@ -99,12 +99,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
 
     override fun onPaused() {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-        !isInPictureInPictureMode &&
-        !playerPreferences.automaticBackgroundPlayback.get()
-      ) {
-        playerViewModel.pause()
-      }
       saveVideoPlaybackState(currentPlayerItem.mediaId)
     }
 
@@ -125,6 +119,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
     override fun onDestroy() {
       Timber.d("Exiting")
+      playerViewModel.pause()
 
       releaseAudio()
       releaseMediaSession()
@@ -142,14 +137,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
     playerViewModel.showControls()
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    enableEdgeToEdge()
-
-    setupMPV()
-  }
-
   override fun onDestroy() {
     super.onDestroy()
 
@@ -159,7 +146,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
     MPVLib.removeObserver(playerObserver)
 
-    MPVLib.destroy()
+    player.destroy()
   }
 
   @Suppress("CyclomaticComplexMethod")
@@ -199,17 +186,12 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
         // other keys should be bound by the user in input.conf ig
         else -> {
-          event?.let { player.onKey(it) }
+          event?.let { playerViewModel.player.onKey(it) }
           super.onKeyDown(keyCode, event)
         }
       }
     }
     return true
-  }
-
-  override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-    if (player.onKey(event!!)) return true
-    return super.onKeyUp(keyCode, event)
   }
 
   override fun onStart() {

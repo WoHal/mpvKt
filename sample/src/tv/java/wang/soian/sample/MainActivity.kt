@@ -50,7 +50,6 @@ class MainActivity : VideoPlayerActivity() {
               }
               composable("video") {
                 BasePlayerScreen(
-                  binding = playerLayoutBinding,
                   playerHelper = playerHelper,
                   onBackPress = ::finish,
                   viewModel = playerViewModel

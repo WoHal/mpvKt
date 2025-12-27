@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.tv.material3.ListItem
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.Text
@@ -99,7 +100,9 @@ fun TrackItem(
     },
     headlineContent = {
       Text(
-        text = text
+        text = text,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
       )
     },
     onClick = onClick,

@@ -24,7 +24,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.database.entities.CustomButtonEntity
 import live.mehiz.mpvkt.database.entities.PlaybackStateEntity
-import live.mehiz.mpvkt.databinding.PlayerLayoutBinding
 import live.mehiz.mpvkt.domain.playbackstate.repository.PlaybackStateRepository
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.preferences.AdvancedPreferences
@@ -48,10 +47,8 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
   abstract val playerHelper: BasePlayerHelper
   abstract var currentPlayerItem: MPVPlayerItem
 
-  lateinit var playerLayoutBinding: PlayerLayoutBinding
-  lateinit var player: MPVView
-
   val playerViewModel: PlayerViewModel by viewModels { PlayerViewModelProviderFactory(this as PlayerActivity) }
+  lateinit var player: MPVView
   private val playbackStateRepository: PlaybackStateRepository by inject()
   val windowInsetsController by lazy { WindowCompat.getInsetsController(window, window.decorView) }
   val audioManager by lazy { getSystemService(AUDIO_SERVICE) as AudioManager }
@@ -66,15 +63,12 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
   var audioFocusRequest: AudioFocusRequestCompat? = null
   private var restoreAudioFocus: () -> Unit = {}
 
-  fun loadPlayer() {
-    playerLayoutBinding = PlayerLayoutBinding.inflate(layoutInflater)
-    player = playerLayoutBinding.player
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    loadPlayer()
+    player = playerViewModel.player
+
+    setupMPV()
   }
 
   override fun finish() {
@@ -95,13 +89,10 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent {
       copyMPVFonts()
     }
   }
-
   fun setupMPV() {
     copyMPVAssets()
-    player.initialize(filesDir.path, cacheDir.path)
     MPVLib.addObserver(playerObserver)
   }
-
   fun setupAudio() {
     audioPreferences.audioChannels.get().let { MPVLib.setPropertyString(it.property, it.value) }
 

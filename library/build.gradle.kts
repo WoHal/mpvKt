@@ -134,10 +134,6 @@ dependencies {
   implementation(libs.mpv.lib)
   implementation(libs.timber)
 
-//  implementation(fileTree("${rootDir}/aars") {
-//    include("*.aar")
-//  })
-
   implementation(platform(libs.koin.bom))
   implementation(libs.bundles.koin)
 

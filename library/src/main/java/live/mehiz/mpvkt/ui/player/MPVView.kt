@@ -23,7 +23,7 @@ import kotlin.reflect.KProperty
 
 class MPVView(
   context: Context,
-  attributes: AttributeSet
+  attributes: AttributeSet? = null
 ) : BaseMPVView(context, attributes), KoinComponent {
 
   private val audioPreferences: AudioPreferences by inject()
@@ -55,9 +55,13 @@ class MPVView(
     }
   }
 
-  var sid: Int by TrackDelegate("sid")
-  var secondarySid: Int by TrackDelegate("secondary-sid")
-  var aid: Int by TrackDelegate("aid")
+  var sid: Int = -1
+  var secondarySid: Int = -1
+  var aid: Int = -1
+
+//  var sid: Int by TrackDelegate("sid")
+//  var secondarySid: Int by TrackDelegate("secondary-sid")
+//  var aid: Int by TrackDelegate("aid")
 
   override fun initOptions() {
     setVo(if (decoderPreferences.gpuNext.get()) "gpu-next" else "gpu")
