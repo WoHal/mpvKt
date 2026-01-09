@@ -1,8 +1,8 @@
 package wang.soian.sample
 
-import live.mehiz.mpvkt.ui.player.PlayerActivity
 import live.mehiz.mpvkt.model.MPVPlayerItem
-import live.mehiz.mpvkt.ui.player.MPVView
+import io.github.wohal.mpvplayer.PlayerActivity
+import live.mehiz.mpvkt.database.entities.PlaybackStateEntity
 import timber.log.Timber
 
 open class VideoPlayerActivity : PlayerActivity() {
@@ -15,7 +15,23 @@ open class VideoPlayerActivity : PlayerActivity() {
     )
   }
 
+  override fun onPlayerScreenCreated() {
+    super.onPlayerScreenCreated()
+
+    initCurrentPlayerItem()
+
+    play(currentPlayerItem)
+  }
+
   override fun onPlayEnd() {
     Timber.v("play end")
+  }
+
+  override fun savePlaybackState(state: PlaybackStateEntity) {
+    Timber.d("state: $state")
+  }
+
+  override suspend fun loadVideoPlaybackStateById(mediaId: String): PlaybackStateEntity? {
+    return null
   }
 }

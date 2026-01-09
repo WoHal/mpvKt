@@ -1,4 +1,4 @@
-package live.mehiz.mpvkt.player.modifier
+package io.github.wohal.mpvplayer.modifier
 
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier

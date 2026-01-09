@@ -1,4 +1,4 @@
-package live.mehiz.mpvkt.player.controls.components
+package io.github.wohal.mpvplayer.controls.components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -34,7 +34,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import live.mehiz.mpvkt.player.controls.LocalPlayerButtonsClickEvent
+import io.github.wohal.mpvplayer.controls.LocalPlayerButtonsClickEvent
 import live.mehiz.mpvkt.ui.theme.spacing
 
 @Suppress("ModifierClickableOrder")

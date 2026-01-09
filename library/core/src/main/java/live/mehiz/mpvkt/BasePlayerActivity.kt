@@ -1,6 +1,8 @@
 package live.mehiz.mpvkt
 
 import android.annotation.SuppressLint
+import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.WindowManager
@@ -8,9 +10,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import androidx.media.AudioManagerCompat
 import `is`.xyz.mpv.MPVLib
 import `is`.xyz.mpv.MPVNode
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.database.entities.PlaybackStateEntity
 import live.mehiz.mpvkt.model.MPVPlayerItem
@@ -20,8 +24,8 @@ import live.mehiz.mpvkt.ui.player.PlayerViewModelProviderFactory
 import timber.log.Timber
 
 @Suppress("TooManyFunctions")
-abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent, MPVLib.EventObserver {
-  abstract val playerScreenHelper: PlayerScreenHelper
+abstract class BasePlayerActivity : ComponentActivity(),
+  BasePlayerEvent, MPVLib.EventObserver, PlayerScreenObserver {
   abstract var currentPlayerItem: MPVPlayerItem
   var currentVideoPlaybackState: PlaybackStateEntity? = null
 
@@ -89,6 +93,49 @@ abstract class BasePlayerActivity : ComponentActivity(), BasePlayerEvent, MPVLib
 
       MPVLib.MpvEvent.MPV_EVENT_PLAYBACK_RESTART -> player.isExiting = false
     }
+  }
+
+  override fun onPlayerScreenCreated() {
+    playerViewModel.playerHelper.setupAudio()
+    playerViewModel.playerHelper.setupMediaSession()
+  }
+
+  override fun onPlayerScreenPaused() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
+      !isInPictureInPictureMode &&
+      !playerViewModel.playerPreferences.automaticBackgroundPlayback.get()
+    ) {
+      playerViewModel.pause()
+    }
+    saveVideoPlaybackState()
+  }
+
+  override fun onPlayerScreenResumed() {
+    playerViewModel.currentVolume.update {
+      playerViewModel.playerHelper.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).also {
+        if (it < playerViewModel.maxVolume) playerViewModel.changeMPVVolumeTo(100)
+      }
+    }
+  }
+
+  override fun onPlayerScreenStopped() {
+    saveVideoPlaybackState()
+  }
+
+  override fun onPlayerScreenDestroy() {
+    Timber.d("Exiting")
+    playerViewModel.playerHelper.audioFocusRequest?.let {
+      AudioManagerCompat.abandonAudioFocusRequest(playerViewModel.playerHelper.audioManager, it)
+    }
+    playerViewModel.playerHelper.audioFocusRequest = null
+    playerViewModel.playerHelper.releaseAudio()
+    playerViewModel.playerHelper.releaseMediaSession()
+
+    player.isExiting = true
+    if (isFinishing) {
+      MPVLib.command("stop")
+    }
+    MPVLib.destroy()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

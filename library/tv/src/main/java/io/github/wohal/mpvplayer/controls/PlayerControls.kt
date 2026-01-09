@@ -1,4 +1,4 @@
-package live.mehiz.mpvkt.player.controls
+package io.github.wohal.mpvplayer.controls
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -70,15 +70,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.PlayerPreferences
-import live.mehiz.mpvkt.player.Decoder.Companion.getDecoderFromValue
-import live.mehiz.mpvkt.player.Panels
-import live.mehiz.mpvkt.player.PlayerUpdates
-import live.mehiz.mpvkt.player.PlayerViewModel
-import live.mehiz.mpvkt.player.Sheets
-import live.mehiz.mpvkt.player.controls.components.MultipleSpeedPlayerUpdate
-import live.mehiz.mpvkt.player.controls.components.SeekbarWithTimers
-import live.mehiz.mpvkt.player.controls.components.TextPlayerUpdate
-import live.mehiz.mpvkt.player.modifier.handleDPadKeyEvents
+import live.mehiz.mpvkt.ui.player.Decoder.Companion.getDecoderFromValue
+import live.mehiz.mpvkt.ui.player.Panels
+import live.mehiz.mpvkt.ui.player.PlayerUpdates
+import live.mehiz.mpvkt.ui.player.PlayerViewModel
+import live.mehiz.mpvkt.ui.player.Sheets
+import live.mehiz.mpvkt.ui.player.controls.components.MultipleSpeedPlayerUpdate
+import live.mehiz.mpvkt.ui.player.controls.components.SeekbarWithTimers
+import live.mehiz.mpvkt.ui.player.controls.components.TextPlayerUpdate
+import io.github.wohal.mpvplayer.modifier.handleDPadKeyEvents
+import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.ui.theme.playerRippleConfiguration
 import live.mehiz.mpvkt.ui.theme.spacing
 import org.koin.compose.koinInject

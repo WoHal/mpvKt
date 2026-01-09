@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
 
 class MainActivity : VideoPlayerActivity() {
@@ -36,7 +35,6 @@ class MainActivity : VideoPlayerActivity() {
                 ) {
                   Button(
                     onClick = {
-//                      loadPlayer()
                       mainNavController.navigate("video")
                     }
                   ) {
@@ -47,10 +45,10 @@ class MainActivity : VideoPlayerActivity() {
                 }
               }
               composable("video") {
-                BasePlayerScreen(
-                  playerHelper = playerHelper,
-                  onBackPress = ::finish,
-                  viewModel = playerViewModel
+                PlayerScreen(
+                  onBackPress = {
+                    mainNavController.navigateUp()
+                  }
                 )
               }
             }

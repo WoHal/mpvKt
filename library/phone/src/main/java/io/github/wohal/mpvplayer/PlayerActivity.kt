@@ -28,13 +28,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.lifecycleScope
-import androidx.media.AudioManagerCompat
+import io.github.wohal.mpvplayer.controls.PlayerControls
 import `is`.xyz.mpv.MPVLib
-import `is`.xyz.mpv.MPVNode
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.BasePlayerActivity
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.player.PIP_FF
@@ -44,7 +40,7 @@ import live.mehiz.mpvkt.ui.player.PIP_INTENT_ACTION
 import live.mehiz.mpvkt.ui.player.PIP_PAUSE
 import live.mehiz.mpvkt.ui.player.PIP_PLAY
 import live.mehiz.mpvkt.ui.player.Panels
-import live.mehiz.mpvkt.PlayerScreenHelper
+import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.ui.player.PlayerOrientation
 import live.mehiz.mpvkt.ui.player.Sheets
 import live.mehiz.mpvkt.ui.player.createPipActions
@@ -92,74 +88,48 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
   }
 
-  override val playerScreenHelper = object : PlayerScreenHelper {
-    override fun onCreated() {
-      playerViewModel.playerHelper.setupAudio()
-      playerViewModel.playerHelper.setupMediaSession()
+  override fun onPlayerScreenCreated() {
+    super.onPlayerScreenCreated()
 
-      setupNoisyReceiver()
+    setupNoisyReceiver()
 
-      setOrientation()
+    setOrientation()
 
-      MPVLib.addObserver(this@PlayerActivity)
-    }
+    MPVLib.addObserver(this)
+  }
 
-    override fun onPaused() {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-        !isInPictureInPictureMode &&
-        !playerViewModel.playerPreferences.automaticBackgroundPlayback.get()
-      ) {
-        playerViewModel.pause()
-      }
-      saveVideoPlaybackState()
-    }
+  override fun onPlayerScreenStopped() {
+    super.onPlayerScreenStopped()
 
-    override fun onResumed() {
-      playerViewModel.currentVolume.update {
-        playerViewModel.playerHelper.audioManager.getStreamVolume(AudioManager.STREAM_MUSIC).also {
-          if (it < playerViewModel.maxVolume) playerViewModel.changeMPVVolumeTo(100)
-        }
+    if (!serviceBound && playerViewModel.playerPreferences.automaticBackgroundPlayback.get()) {
+      startBackgroundPlayback()
+    } else {
+      playerViewModel.pause()
+      if (serviceBound) {
+        unbindService(serviceConnection)
+        serviceBound = false
       }
     }
-
-    override fun onStopped() {
-      saveVideoPlaybackState()
-      if (!serviceBound && playerViewModel.playerPreferences.automaticBackgroundPlayback.get()) {
-        startBackgroundPlayback()
-      } else {
-        playerViewModel.pause()
-        if (serviceBound) {
-          unbindService(serviceConnection)
-          serviceBound = false
-        }
-      }
-      window.attributes.screenBrightness.let {
-        if (playerViewModel.playerPreferences.rememberBrightness.get() && it != -1f) {
-          playerViewModel.playerPreferences.defaultBrightness.set(it)
-        }
+    window.attributes.screenBrightness.let {
+      if (playerViewModel.playerPreferences.rememberBrightness.get() && it != -1f) {
+        playerViewModel.playerPreferences.defaultBrightness.set(it)
       }
     }
+  }
 
-    override fun onDestroy() {
-      Timber.d("Exiting")
-      playerViewModel.playerHelper.audioFocusRequest?.let {
-        AudioManagerCompat.abandonAudioFocusRequest(playerViewModel.playerHelper.audioManager, it)
-      }
-      playerViewModel.playerHelper.audioFocusRequest = null
-      playerViewModel.playerHelper.releaseAudio()
-      playerViewModel.playerHelper.releaseMediaSession()
-      if (noisyReceiver.initialized) {
-        unregisterReceiver(noisyReceiver)
-        noisyReceiver.initialized = false
-      }
+  override fun onPlayerScreenDestroy() {
+    super.onPlayerScreenDestroy()
 
-      player.isExiting = true
-      if (isFinishing) {
-        MPVLib.command("stop")
-      }
-      MPVLib.removeObserver(this@PlayerActivity)
-      MPVLib.destroy()
+    if (noisyReceiver.initialized) {
+      unregisterReceiver(noisyReceiver)
+      noisyReceiver.initialized = false
     }
+
+    player.isExiting = true
+    if (isFinishing) {
+      MPVLib.command("stop")
+    }
+    MPVLib.removeObserver(this)
   }
 
   val serviceConnection = object : ServiceConnection {
@@ -232,8 +202,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     setContent {
       MpvKtTheme {
         BasePlayerScreen(
-          playerHelper = playerScreenHelper,
-          onBackPress = ::finish,
+          playerHelper = this@PlayerActivity,
           viewModel = playerViewModel,
           modifier = Modifier.onGloballyPositioned {
             pipRect = run {
@@ -244,7 +213,12 @@ abstract class PlayerActivity : BasePlayerActivity() {
               )
             }
           }
-        )
+        ) {
+          PlayerControls(
+            viewModel = playerViewModel,
+            onBackPress = ::finish,
+          )
+        }
       }
     }
   }

@@ -1,12 +1,12 @@
-package live.mehiz.mpvkt.player.controls
+package io.github.wohal.mpvplayer.controls
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import live.mehiz.mpvkt.player.Decoder
-import live.mehiz.mpvkt.player.controls.components.ControlsButton
+import live.mehiz.mpvkt.ui.player.Decoder
+import io.github.wohal.mpvplayer.controls.components.ControlsButton
 
 @Composable
 fun BottomPlayerControls(

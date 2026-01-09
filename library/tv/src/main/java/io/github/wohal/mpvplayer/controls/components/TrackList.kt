@@ -1,4 +1,4 @@
-package live.mehiz.mpvkt.player.controls.components
+package io.github.wohal.mpvplayer.controls.components
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,8 +22,8 @@ import androidx.tv.material3.ListItem
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.Text
 import kotlinx.collections.immutable.ImmutableList
-import live.mehiz.mpvkt.player.TrackNode
-import live.mehiz.mpvkt.player.controls.components.sheets.getTrackTitle
+import live.mehiz.mpvkt.ui.player.TrackNode
+import live.mehiz.mpvkt.ui.player.controls.components.sheets.getTrackTitle
 import live.mehiz.mpvkt.ui.theme.spacing
 
 @Composable

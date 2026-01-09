@@ -1,112 +1,17 @@
-package live.mehiz.mpvkt.player
+package io.github.wohal.mpvplayer
 
-import android.os.Build
 import android.view.KeyEvent
-import android.view.WindowManager
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.lifecycleScope
-import `is`.xyz.mpv.MPVLib
-import `is`.xyz.mpv.MPVNode
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import io.github.wohal.mpvplayer.controls.PlayerControls
 import live.mehiz.mpvkt.BasePlayerActivity
-import live.mehiz.mpvkt.PlayerScreenHelper
+import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.player.Sheets
 
 abstract class PlayerActivity : BasePlayerActivity() {
   abstract fun initCurrentPlayerItem()
-
-  override val playerObserver = object : MPVLib.EventObserver {
-    // a bunch of observers
-    override fun eventProperty(property: String, value: Long) {
-      if (player.isExiting) return
-    }
-
-    override fun eventProperty(property: String) {
-      if (player.isExiting) return
-    }
-
-    override fun eventProperty(property: String, value: Boolean) {
-      if (player.isExiting) return
-      runOnUiThread {
-        when (property) {
-          "pause" -> {
-            if (value) {
-              window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            } else {
-              window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            }
-          }
-          "eof-reached" if value -> {
-            if (playerViewModel.playerPreferences.closeAfterReachingEndOfVideo.get()) {
-              finishAndRemoveTask()
-            } else {
-              playerViewModel.seekTo(0)
-              onPlayEnd()
-            }
-          }
-        }
-      }
-    }
-
-    override fun eventProperty(property: String, value: String) {
-      if (player.isExiting) return
-      // Custom Buttons Event
-    }
-
-    override fun eventProperty(property: String, value: MPVNode) {
-      if (player.isExiting) return
-    }
-
-    override fun eventProperty(property: String, value: Double) {
-      if (player.isExiting) return
-    }
-
-    override fun event(eventId: Int, data: MPVNode) {
-      if (player.isExiting) return
-      runOnUiThread {
-        when (eventId) {
-          MPVLib.MpvEvent.MPV_EVENT_FILE_LOADED -> {
-            setMpvExtras(currentPlayerItem)
-
-            MPVLib.setPropertyString("media-title", currentPlayerItem.mediaTitle)
-            lifecycleScope.launch(Dispatchers.IO) {
-              loadVideoPlaybackState(currentPlayerItem.mediaId)
-            }
-            playerViewModel.changeVideoAspect(playerViewModel.playerPreferences.videoAspect.get())
-          }
-
-          MPVLib.MpvEvent.MPV_EVENT_PLAYBACK_RESTART -> player.isExiting = false
-        }
-      }
-    }
-  }
-
-  override val playerHelper = object : PlayerScreenHelper {
-    override fun onCreated() {
-      TODO("Not yet implemented")
-    }
-
-    override fun onPaused() {
-      TODO("Not yet implemented")
-    }
-
-    override fun onResumed() {
-      TODO("Not yet implemented")
-    }
-
-    override fun onStopped() {
-      TODO("Not yet implemented")
-    }
-
-    override fun onDestroy() {
-      TODO("Not yet implemented")
-    }
-
-  }
 
   fun play(playerItem: MPVPlayerItem) {
     currentPlayerItem = playerItem
@@ -121,12 +26,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
   override fun onDestroy() {
     super.onDestroy()
-
-    player.isExiting = true
-    if (isFinishing) {
-      MPVLib.command("stop")
-    }
-    MPVLib.removeObserver(playerObserver)
 
     player.destroy()
   }
@@ -174,5 +73,20 @@ abstract class PlayerActivity : BasePlayerActivity() {
       }
     }
     return true
+  }
+
+  @Composable
+  fun PlayerScreen(
+    onBackPress: () -> Unit = {},
+  ) {
+    BasePlayerScreen(
+      playerHelper = this@PlayerActivity,
+      viewModel = playerViewModel,
+    ) {
+      PlayerControls(
+        viewModel = playerViewModel,
+        onBackPress = onBackPress,
+      )
+    }
   }
 }

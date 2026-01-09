@@ -1,2 +1,2 @@
-live.mehiz.mpvkt
+io.github.wohal.mpvplayer
 raw aboutlibraries

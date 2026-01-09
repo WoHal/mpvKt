@@ -1,4 +1,4 @@
-package live.mehiz.mpvkt.player.controls
+package io.github.wohal.mpvplayer.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import live.mehiz.mpvkt.player.TrackNode
-import live.mehiz.mpvkt.player.controls.components.TrackList
+import io.github.wohal.mpvplayer.controls.components.TrackList
+import live.mehiz.mpvkt.ui.player.TrackNode
 import live.mehiz.mpvkt.ui.theme.spacing
 
 @Composable

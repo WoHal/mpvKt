@@ -23,12 +23,12 @@ import live.mehiz.mpvkt.ui.player.SingleActionGesture
 import timber.log.Timber
 import java.io.File
 
-interface PlayerScreenHelper {
-  fun onCreated()
-  fun onPaused()
-  fun onResumed()
-  fun onStopped()
-  fun onDestroy()
+interface PlayerScreenObserver {
+  fun onPlayerScreenCreated()
+  fun onPlayerScreenPaused()
+  fun onPlayerScreenResumed()
+  fun onPlayerScreenStopped()
+  fun onPlayerScreenDestroy()
 }
 
 class PlayerActivityHelper(

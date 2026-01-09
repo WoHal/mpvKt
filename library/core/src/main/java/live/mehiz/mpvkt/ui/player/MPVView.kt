@@ -61,7 +61,7 @@ class MPVView(
   override fun initOptions() {
     setVo(if (decoderPreferences.gpuNext.get()) "gpu-next" else "gpu")
     MPVLib.setOptionString("profile", "fast")
-    MPVLib.setOptionString("hwdec", if (decoderPreferences.tryHWDecoding.get()) "auto" else "no")
+    MPVLib.setOptionString("hwdec", if (decoderPreferences.tryHWDecoding.get()) "no" else "no")
 
     if (decoderPreferences.useYUV420P.get()) {
       MPVLib.setOptionString("vf", "format=yuv420p")
