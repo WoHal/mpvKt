@@ -18,8 +18,8 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.ImmutableList
 import io.github.wohal.mpvplayer.controls.components.TrackList
+import kotlinx.collections.immutable.ImmutableList
 import live.mehiz.mpvkt.ui.player.TrackNode
 import live.mehiz.mpvkt.ui.theme.spacing
 

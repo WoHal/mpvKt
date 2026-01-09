@@ -1,9 +1,5 @@
 package io.github.wohal.mpvplayer.controls.components
 
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -17,12 +13,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CatchingPokemon
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,15 +26,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import io.github.wohal.mpvplayer.controls.LocalPlayerButtonsClickEvent
+import live.mehiz.mpvkt.ui.player.controls.LocalPlayerButtonsClickEvent
 import live.mehiz.mpvkt.ui.theme.spacing
 
 @Suppress("ModifierClickableOrder")
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ControlsButton(
   icon: ImageVector,
@@ -53,28 +48,6 @@ fun ControlsButton(
   val interactionSource = remember { MutableInteractionSource() }
 
   val clickEvent = LocalPlayerButtonsClickEvent.current
-  val isFocused by focusInteractionSource.collectIsFocusedAsState()
-// 跳动动画
-  val jumpAnim = remember { Animatable(1f) }
-
-  // 监听焦点变化
-  LaunchedEffect(isFocused) {
-    if (isFocused) {
-      jumpAnim.animateTo(
-        targetValue = 1.3f, // 放大倍数
-        animationSpec = infiniteRepeatable(
-          animation = keyframes {
-            durationMillis = 500 // 持续时间
-            1f at 0 using FastOutSlowInEasing // 初始大小
-            1.3f at 100 // 放大
-            1f at 300 using FastOutSlowInEasing // 恢复大小
-          }
-        )
-      )
-    } else {
-      jumpAnim.snapTo(1f) // 当失去焦点时恢复到正常大小
-    }
-  }
 
   Box(
     modifier = modifier
@@ -93,7 +66,6 @@ fun ControlsButton(
         ripple()
       )
       .padding(MaterialTheme.spacing.medium)
-      .graphicsLayer(scaleX = jumpAnim.value, scaleY = jumpAnim.value)
       .focusRequester(focusRequester)
       .focusable(interactionSource = focusInteractionSource),
   ) {

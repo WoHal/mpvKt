@@ -160,7 +160,6 @@ aboutLibraries {
   excludeFields = arrayOf("generated")
 }
 
-
 afterEvaluate {
   mavenPublishing {
     publishToMavenCentral(true)

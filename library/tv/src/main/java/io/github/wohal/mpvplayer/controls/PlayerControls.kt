@@ -1,11 +1,7 @@
 package io.github.wohal.mpvplayer.controls
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
@@ -39,12 +35,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
@@ -63,6 +57,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import io.github.wohal.mpvplayer.modifier.handleDPadKeyEvents
+import io.github.wohal.quando.preference.collectAsState
 import `is`.xyz.mpv.MPVLib
 import `is`.xyz.mpv.Utils
 import kotlinx.collections.immutable.persistentListOf
@@ -70,16 +66,15 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.PlayerPreferences
-import live.mehiz.mpvkt.ui.player.Decoder.Companion.getDecoderFromValue
-import live.mehiz.mpvkt.ui.player.Panels
 import live.mehiz.mpvkt.ui.player.PlayerUpdates
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.Sheets
+import live.mehiz.mpvkt.ui.player.controls.LocalPlayerButtonsClickEvent
 import live.mehiz.mpvkt.ui.player.controls.components.MultipleSpeedPlayerUpdate
 import live.mehiz.mpvkt.ui.player.controls.components.SeekbarWithTimers
 import live.mehiz.mpvkt.ui.player.controls.components.TextPlayerUpdate
-import io.github.wohal.mpvplayer.modifier.handleDPadKeyEvents
-import io.github.wohal.quando.preference.collectAsState
+import live.mehiz.mpvkt.ui.player.controls.playerControlsEnterAnimationSpec
+import live.mehiz.mpvkt.ui.player.controls.playerControlsExitAnimationSpec
 import live.mehiz.mpvkt.ui.theme.playerRippleConfiguration
 import live.mehiz.mpvkt.ui.theme.spacing
 import org.koin.compose.koinInject
@@ -87,9 +82,6 @@ import java.util.Timer
 import java.util.TimerTask
 import kotlin.concurrent.schedule
 import kotlin.math.abs
-
-@Suppress("CompositionLocalAllowlist")
-val LocalPlayerButtonsClickEvent = staticCompositionLocalOf { {} }
 
 @OptIn(ExperimentalAnimationGraphicsApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -116,23 +108,21 @@ fun PlayerControls(
   var resetControls by remember { mutableStateOf(true) }
   var isMovingFocus by remember { mutableStateOf(false) }
 
-  val mpvDecoder by MPVLib.propString["hwdec-current"].collectAsState()
-  val decoder by remember { derivedStateOf { getDecoderFromValue(mpvDecoder ?: "auto") } }
   val playerTimeToDisappear by playerPreferences.playerTimeToDisappear.collectAsState()
   val chapters by viewModel.chapters.collectAsState(persistentListOf())
 
   val subtitles by viewModel.subtitleTracks.collectAsState(persistentListOf())
   val audioTracks by viewModel.audioTracks.collectAsState(persistentListOf())
 
-  val onOpenSheet: (Sheets) -> Unit = {
-    viewModel.sheetShown.update { _ -> it }
-    if (it == Sheets.None) {
-      viewModel.showControls()
-    } else {
-      viewModel.hideControls()
-      viewModel.panelShown.update { Panels.None }
-    }
-  }
+//  val onOpenSheet: (Sheets) -> Unit = {
+//    viewModel.sheetShown.update { _ -> it }
+//    if (it == Sheets.None) {
+//      viewModel.showControls()
+//    } else {
+//      viewModel.hideControls()
+//      viewModel.panelShown.update { Panels.None }
+//    }
+//  }
 
   var timerTask by remember { mutableStateOf<TimerTask?>(null) }
 
@@ -423,27 +413,17 @@ fun PlayerControls(
 
             BottomPlayerControls(
               modifier = Modifier.padding(start = 50.dp),
-//              // speed
-//              playbackSpeed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
-//              onPlaybackSpeedChange = {
-//                MPVLib.setPropertyFloat("speed", it)
-//                playerPreferences.defaultSpeed.set(it)
+              // subtitle
+              onSelectSubtitle = {},
+              // audio
+//              audioTracks = audioTracks,
+//              onSelectAudio = { id ->
+//                if (id < 0) {
+//                  MPVLib.setPropertyBoolean("aid", false)
+//                } else if (MPVLib.getPropertyInt("aid") != id) {
+//                  MPVLib.setPropertyInt("aid", id)
+//                }
 //              },
-              // decoder
-              decoder = decoder,
-              onDecoderClick = { viewModel.cycleDecoders() },
-              onDecoderLongClick = { onOpenSheet(Sheets.Decoders) },
-//              // subtitle
-//              onSubtitlesClick = { onOpenSheet(Sheets.SubtitleTracks) },
-//              onSubtitlesLongClick = { onOpenPanel(Panels.SubtitleSettings) },
-//              // audio
-//              onAudioClick = { onOpenSheet(Sheets.AudioTracks) },
-//              onAudioLongClick = { onOpenPanel(Panels.AudioDelay) },
-//              // chapter
-//              isChaptersVisible = showChaptersButton && chapters.isNotEmpty(),
-//              currentChapter = chapters.getOrNull(currentChapter ?: 0),
-//
-//              onOpenSheet = onOpenSheet,
             )
           }
         }
@@ -483,21 +463,9 @@ fun PlayerControls(
                 MPVLib.setPropertyInt("aid", id)
               }
             },
-
-//            onDismissRequest = { onOpenSheet(Sheets.None) },
           )
         }
       }
     }
   }
 }
-
-fun <T> playerControlsExitAnimationSpec(): FiniteAnimationSpec<T> = tween(
-  durationMillis = 300,
-  easing = FastOutSlowInEasing,
-)
-
-fun <T> playerControlsEnterAnimationSpec(): FiniteAnimationSpec<T> = tween(
-  durationMillis = 100,
-  easing = LinearOutSlowInEasing,
-)

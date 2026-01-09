@@ -1,9 +1,7 @@
 package io.github.wohal.mpvplayer
 
 import android.view.KeyEvent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import io.github.wohal.mpvplayer.controls.PlayerControls
 import live.mehiz.mpvkt.BasePlayerActivity
 import live.mehiz.mpvkt.BasePlayerScreen

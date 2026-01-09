@@ -1,2 +1,0 @@
-io.github.wang.mpvplayer
-raw aboutlibraries
