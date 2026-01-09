@@ -10,7 +10,10 @@ plugins {
   alias(libs.plugins.about.libraries)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.ksp)
+  alias(libs.plugins.maven.publish)
 }
+
+val libVersion = "0.0.1"
 
 android {
   namespace = "io.github.wohal.mpvplayer"
@@ -155,4 +158,43 @@ fun runCommand(command: String): String {
 
 aboutLibraries {
   excludeFields = arrayOf("generated")
+}
+
+
+afterEvaluate {
+  mavenPublishing {
+    publishToMavenCentral(true)
+    signAllPublications()
+    coordinates(
+      "io.github.wohal",
+      "mpvplayer-tv",
+      libVersion
+    )
+
+    pom {
+      name = "Android mpvplayer"
+      description = "The android mpvplayer tv library."
+      inceptionYear = "2025"
+      url = "https://github.com/WoHal/mpvkt/"
+      licenses {
+        license {
+          name = "MIT License"
+          url = "https://opensource.org/license/mit/"
+          distribution = "repo"
+        }
+      }
+      developers {
+        developer {
+          id = "WoHal"
+          name = "WoHal"
+          url = "https://github.com/WoHal/"
+        }
+      }
+      scm {
+        url = "https://github.com/WoHal/mpvkt/"
+        connection = "scm:git:git://github.com/WoHal/mpvkt.git"
+        developerConnection = "scm:git:ssh://git@github.com/WoHal/mpvkt.git"
+      }
+    }
+  }
 }
