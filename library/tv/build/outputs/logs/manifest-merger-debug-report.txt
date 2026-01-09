@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml:2:13-83
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml:2:13-83
+	package
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml
+	xmlns:android
+		ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml:2:23-81
+uses-sdk
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml reason: use-sdk injection requested
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml
+	android:targetSdkVersion
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml
+	android:minSdkVersion
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/tv/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest7918617797860948201.xml

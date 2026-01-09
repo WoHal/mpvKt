@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "live.mehiz.mpvkt.test.tv-mergeDebugAndroidTestResources-2:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "/opt/workspace/gradle/caches/8.14.2/transforms/a257288bf95325d8520372c5b89a80e9/transformed/material3/res/values-v30/values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}

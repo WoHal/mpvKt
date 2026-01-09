@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -13,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "wang.soian.sample"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -51,14 +53,19 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
     }
 }
 
 dependencies {
 
-    implementation(project(":library"))
+    implementation(project(":library:core"))
+    "phoneImplementation"(project(":library:phone"))
+    "tvImplementation"(project(":library:tv"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
@@ -66,8 +73,9 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     implementation(libs.timber)
+    implementation(libs.mpv.lib)
 
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
-  implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 }

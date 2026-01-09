@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d 条新通知</item>
+    <item quantity="other">%d 条新通知</item>
+  </plurals>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"转到首页"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"转到上一层级"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"更多选项"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"完成"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"查看全部"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"选择应用"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"关闭"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"开启"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"Delete 键"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"Enter 键"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Fn+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"空格键"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"搜索…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"清除查询"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"搜索查询"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"搜索"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"提交查询"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"语音搜索"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"分享对象"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"与<ns1:g id="APPLICATION_NAME">%s</ns1:g>分享"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"收起"</string>
+    <string msgid="8719607706653693137" name="androidx_compose_foundation_autofill">"自动填充"</string>
+    <string msgid="1150566100598813236" name="androidx_compose_ui_autofill">"自动填充"</string>
+    <string name="bottomsheet_action_collapse">收起</string>
+    <string name="bottomsheet_action_collapse_description">收起底部动作条</string>
+    <string name="bottomsheet_action_expand">展开</string>
+    <string name="bottomsheet_action_expand_description">展开底部动作条</string>
+    <string name="bottomsheet_action_expand_halfway">展开到一半高度</string>
+    <string name="bottomsheet_action_half_expand_description">将底部动作条展开一半</string>
+    <string name="bottomsheet_drag_handle_content_description">拖动手柄</string>
+    <string name="bottomsheet_state_collapsed">已收起</string>
+    <string name="bottomsheet_state_expanded">已展开</string>
+    <string name="bottomsheet_state_half_expanded">已展开一半</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"接听"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"视频通话"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"拒接"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"挂断"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"来电"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"正在通话"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"正在过滤来电"</string>
+    <string name="character_counter_content_description">输入了 %1$d 个字符（上限为 %2$d 个）</string>
+    <string name="character_counter_overflowed_content_description">超出字符数限制（共 %1$d 个，上限为 %2$d 个）</string>
+    <string name="clear_text_end_icon_content_description">清除文字</string>
+    <string msgid="406453423630273620" name="close_drawer">"关闭导航菜单"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"关闭工作表"</string>
+    <string msgid="6083905920877235314" name="copy">"复制"</string>
+    <string name="crash_screen_logs_title">崩溃日志：</string>
+    <string name="crash_screen_restart">重启应用</string>
+    <string name="crash_screen_share">分享崩溃日志</string>
+    <string name="crash_screen_subtitle">看起来 %s 遇到了一个意外错误。请考虑在 GitHub 问题中分享崩溃日志。</string>
+    <string name="crash_screen_title">糟糕</string>
+    <string msgid="8038256446254964252" name="default_error_message">"输入无效"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"弹出式窗口"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"下拉菜单"</string>
+    <string name="error_a11y_label">错误：无效</string>
+    <string name="error_icon_content_description">错误</string>
+    <string msgid="2427401033573778270" name="expand_button_title">"高级"</string>
+    <string name="exposed_dropdown_menu_content_description">显示下拉菜单</string>
+    <string name="generic_cancel">取消</string>
+    <string name="generic_confirm">确定</string>
+    <string name="generic_disabled">禁用</string>
+    <string name="generic_ok">OK</string>
+    <string name="generic_reset">重置</string>
+    <string name="generic_share">分享</string>
+    <string name="generic_unit_ms">ms</string>
+    <string name="home_invalid_protocol">无效的协议</string>
+    <string name="home_open_file_picker">打开文件选择器</string>
+    <string name="home_open_url">打开 URL</string>
+    <string name="home_pick_file">选择文件</string>
+    <string name="home_url_input_label">URL</string>
+    <string name="icon_content_description">对话框图标</string>
+    <string msgid="6827826412747255547" name="in_progress">"进行中"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"部分选中"</string>
+    <string name="item_view_role_description">标签页</string>
+    <string name="m3_loading_indicator_content_description">正在加载</string>
+    <string name="m3_overflow_linear_layout_button_content_description">菜单</string>
+    <string name="m3_overflow_linear_layout_button_tooltip_text">更多选项</string>
+    <string msgid="2988463736136100848" name="m3c_bottom_sheet_collapse_description">"收起底部动作条"</string>
+    <string msgid="1555567894577437024" name="m3c_bottom_sheet_dismiss_description">"关闭底部动作条"</string>
+    <string msgid="8403354765404029791" name="m3c_bottom_sheet_drag_handle_description">"拖动手柄"</string>
+    <string msgid="6670819569745899763" name="m3c_bottom_sheet_expand_description">"展开底部动作条"</string>
+    <string msgid="3010635850035863127" name="m3c_bottom_sheet_pane_title">"底部动作条"</string>
+    <string msgid="8166741421776570875" name="m3c_date_input_headline">"输入的日期"</string>
+    <string msgid="229313757840775812" name="m3c_date_input_headline_description">"输入的日期：%1$s"</string>
+    <string msgid="6116910750161463197" name="m3c_date_input_invalid_for_pattern">"日期不符合格式要求：%1$s"</string>
+    <string msgid="2521768508935305279" name="m3c_date_input_invalid_not_allowed">"日期无效：%1$s"</string>
+    <string msgid="7052898923934555305" name="m3c_date_input_invalid_year_range">"日期超出预期年份范围 %1$s - %2$s"</string>
+    <string msgid="2895559812010326913" name="m3c_date_input_label">"日期"</string>
+    <string msgid="1237013946323089826" name="m3c_date_input_no_input_description">"无"</string>
+    <string msgid="7306227249789210568" name="m3c_date_input_title">"选择日期"</string>
+    <string msgid="7605002211875882969" name="m3c_date_picker_headline">"选定的日期"</string>
+    <string msgid="3664277305226978227" name="m3c_date_picker_headline_description">"当前的选择：%1$s"</string>
+    <string msgid="8436650776581492840" name="m3c_date_picker_navigate_to_year_description">"切换到年份：%1$s"</string>
+    <string msgid="5811000998184572395" name="m3c_date_picker_no_selection_description">"无"</string>
+    <string msgid="7813882352367152251" name="m3c_date_picker_scroll_to_earlier_years">"滚动即可显示之前的年份"</string>
+    <string msgid="5727367015496556177" name="m3c_date_picker_scroll_to_later_years">"滚动即可显示之后的年份"</string>
+    <string msgid="1804346892470238807" name="m3c_date_picker_switch_to_calendar_mode">"切换到日历输入模式"</string>
+    <string msgid="395627960681594326" name="m3c_date_picker_switch_to_day_selection">"滑动可选择年份，点按可切换回选择日期"</string>
+    <string msgid="2219746470065162704" name="m3c_date_picker_switch_to_input_mode">"切换到文本字段输入模式"</string>
+    <string msgid="7142101321095356500" name="m3c_date_picker_switch_to_next_month">"转到下个月"</string>
+    <string msgid="228438865139394590" name="m3c_date_picker_switch_to_previous_month">"转到上个月"</string>
+    <string msgid="791651718641787594" name="m3c_date_picker_switch_to_year_selection">"切换为选择年份"</string>
+    <string msgid="7430790972741451689" name="m3c_date_picker_title">"选择日期"</string>
+    <string msgid="3199387177749801575" name="m3c_date_picker_today_description">"今天"</string>
+    <string msgid="2068382232816991922" name="m3c_date_picker_year_picker_pane_title">"年份选择器可见"</string>
+    <string msgid="3190049423327661366" name="m3c_date_range_input_invalid_range_input">"输入的日期范围无效"</string>
+    <string msgid="3148384720560189467" name="m3c_date_range_input_title">"输入日期"</string>
+    <string msgid="2138321128465719402" name="m3c_date_range_picker_day_in_range">"在范围内"</string>
+    <string msgid="4947636797751277713" name="m3c_date_range_picker_end_headline">"结束日期"</string>
+    <string msgid="602077859540990149" name="m3c_date_range_picker_scroll_to_next_month">"滚动即可显示下个月"</string>
+    <string msgid="4592174524846109496" name="m3c_date_range_picker_scroll_to_previous_month">"滚动即可显示上个月"</string>
+    <string msgid="4665981448952749820" name="m3c_date_range_picker_start_headline">"开始日期"</string>
+    <string msgid="3134165431120340385" name="m3c_date_range_picker_title">"选择日期"</string>
+    <string msgid="7617233117134790350" name="m3c_dialog">"对话框"</string>
+    <string msgid="3177828188723359358" name="m3c_dropdown_menu_collapsed">"已收起"</string>
+    <string msgid="2360841780724299882" name="m3c_dropdown_menu_expanded">"已展开"</string>
+    <string msgid="8687821690726149911" name="m3c_dropdown_menu_toggle">"展开/收起下拉菜单"</string>
+    <string msgid="6072492480528318635" name="m3c_floating_toolbar_collapse">"收起工具栏"</string>
+    <string msgid="6880757017246780255" name="m3c_floating_toolbar_expand">"展开工具栏"</string>
+    <string msgid="6152806324422087846" name="m3c_search_bar_search">"搜索"</string>
+    <string msgid="6152755701819882931" name="m3c_snackbar_dismiss">"关闭"</string>
+    <string msgid="3868801555855510515" name="m3c_snackbar_pane_title">"提醒"</string>
+    <string msgid="7655536806087401899" name="m3c_suggestions_available">"以下是搜索建议"</string>
+    <string msgid="409352516511718051" name="m3c_time_input_dialog_title">"输入时间"</string>
+    <string msgid="2786685010796619560" name="m3c_time_picker_am">"上午"</string>
+    <string msgid="7412665527536641863" name="m3c_time_picker_dialog_title">"选择时间"</string>
+    <string msgid="2349193472625211372" name="m3c_time_picker_hour">"小时"</string>
+    <string msgid="9179527532316922345" name="m3c_time_picker_hour_24h_suffix">"%1$d 小时"</string>
+    <string msgid="8876759303332837035" name="m3c_time_picker_hour_selection">"选择小时"</string>
+    <string msgid="3458167507790628988" name="m3c_time_picker_hour_suffix">"%1$d 点"</string>
+    <string msgid="6973808109666874069" name="m3c_time_picker_hour_text_field">"输入小时"</string>
+    <string msgid="4313071914266462005" name="m3c_time_picker_minute">"分钟"</string>
+    <string msgid="4699133535056739733" name="m3c_time_picker_minute_selection">"选择分钟"</string>
+    <string msgid="5064177921781937179" name="m3c_time_picker_minute_suffix">"%1$d 分钟"</string>
+    <string msgid="7661234488295443182" name="m3c_time_picker_minute_text_field">"输入分钟"</string>
+    <string msgid="5865171949528594571" name="m3c_time_picker_period_toggle_description">"选择上午或下午"</string>
+    <string msgid="6616362054113087709" name="m3c_time_picker_pm">"下午"</string>
+    <string msgid="4145073906612931838" name="m3c_time_picker_toggle_keyboard">"切换到文字输入法来输入时间"</string>
+    <string msgid="8841786098195101324" name="m3c_time_picker_toggle_touch">"切换到时钟模式来输入时间"</string>
+    <string msgid="1805687647081129904" name="m3c_tooltip_long_press_label">"显示提示"</string>
+    <string msgid="5460405025248574620" name="m3c_tooltip_pane_description">"提示"</string>
+    <string msgid="6564222473543418073" name="m3c_wide_navigation_rail_close_rail">"关闭此栏"</string>
+    <string msgid="8350283435461615411" name="m3c_wide_navigation_rail_pane_title">"侧边导航栏"</string>
+    <string name="material_clock_toggle_content_description">选择上午或下午</string>
+    <string name="material_hour_24h_suffix">%1$s 小时</string>
+    <string name="material_hour_selection">选择小时</string>
+    <string name="material_hour_suffix">%1$s 点</string>
+    <string name="material_minute_selection">选择分钟</string>
+    <string name="material_minute_suffix">%1$s 分</string>
+    <string name="material_slider_range_end">范围终点</string>
+    <string name="material_slider_range_start">范围起点</string>
+    <string name="material_slider_value">值</string>
+    <string name="material_timepicker_am">上午</string>
+    <string name="material_timepicker_clock_mode_description">切换到时钟模式来输入时间。</string>
+    <string name="material_timepicker_clock_mode_tooltip">切换到时钟模式</string>
+    <string name="material_timepicker_hour">小时</string>
+    <string name="material_timepicker_hour_error">小时值必须介于 1 到 12 间</string>
+    <string name="material_timepicker_hour_error_24h">小时值必须介于 0 到 23 间</string>
+    <string name="material_timepicker_minute">分钟</string>
+    <string name="material_timepicker_minute_error">分钟值必须介于 0 到 59 间</string>
+    <string name="material_timepicker_pm">下午</string>
+    <string name="material_timepicker_select_time">选择时间</string>
+    <string name="material_timepicker_text_input_mode_description">切换到文字输入模式来输入时间。</string>
+    <string name="material_timepicker_text_input_mode_tooltip">切换到文字输入模式</string>
+    <string msgid="8471891128988107974" name="mc2_snackbar_pane_title">"提醒"</string>
+    <string name="mtrl_badge_numberless_content_description">新通知</string>
+    <string name="mtrl_button_collapsed_content_description">已收起</string>
+    <string name="mtrl_button_expanded_content_description">已展开</string>
+    <string name="mtrl_button_overflow_icon_content_description">菜单</string>
+    <string name="mtrl_checkbox_state_description_checked">已选中</string>
+    <string name="mtrl_checkbox_state_description_indeterminate">部分选中</string>
+    <string name="mtrl_checkbox_state_description_unchecked">未选中</string>
+    <string name="mtrl_chip_close_icon_content_description">移除%1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">有 %1$d 条以上的新通知</string>
+    <string name="mtrl_picker_a11y_next_month">转到下个月</string>
+    <string name="mtrl_picker_a11y_prev_month">转到上个月</string>
+    <string name="mtrl_picker_announce_current_range_selection">开始日期选择：%1$s – 结束日期选择：%2$s</string>
+    <string name="mtrl_picker_announce_current_selection">当前的选择是：%1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">无</string>
+    <string name="mtrl_picker_cancel">取消</string>
+    <string name="mtrl_picker_confirm">确定</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">请选择日期</string>
+    <string name="mtrl_picker_date_header_unselected">选定的日期</string>
+    <string name="mtrl_picker_day_of_week_column_header">%1$s</string>
+    <string name="mtrl_picker_end_date_description">结束日期 %1$s</string>
+    <string name="mtrl_picker_invalid_format">格式无效。</string>
+    <string name="mtrl_picker_invalid_format_example">示例：%1$s</string>
+    <string name="mtrl_picker_invalid_format_use">使用：%1$s</string>
+    <string name="mtrl_picker_invalid_range">范围无效。</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">转到今年%1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">转到 %1$d 年</string>
+    <string name="mtrl_picker_out_of_range">不在允许的范围内：%1$s</string>
+    <string name="mtrl_picker_pane_title_calendar_view">日历视图</string>
+    <string name="mtrl_picker_pane_title_year_view">年视图</string>
+    <string name="mtrl_picker_range_header_only_end_selected">开始日期 – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – 结束日期</string>
+    <string name="mtrl_picker_range_header_selected">%1$s - %2$s</string>
+    <string name="mtrl_picker_range_header_title">请选择范围</string>
+    <string name="mtrl_picker_range_header_unselected">开始日期 - 结束日期</string>
+    <string name="mtrl_picker_save">保存</string>
+    <string name="mtrl_picker_start_date_description">开始日期 %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">日期</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">结束日期</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">开始日期</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_today_description">今天%1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">切换到日历输入模式</string>
+    <string name="mtrl_picker_toggle_to_day_selection">切换到日历视图</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">切换到文本字段输入模式</string>
+    <string name="mtrl_picker_toggle_to_year_selection">切换到年份视图</string>
+    <string name="mtrl_timepicker_cancel">取消</string>
+    <string name="mtrl_timepicker_confirm">确定</string>
+    <string msgid="542007171693138492" name="navigation_menu">"导航菜单"</string>
+    <string msgid="6610465462668679431" name="not_selected">"未选择"</string>
+    <string msgid="6573031135582639649" name="not_set">"未设置"</string>
+    <string name="numeric_chooser_value_too_big">数值过大</string>
+    <string name="numeric_chooser_value_too_small">数值过小</string>
+    <string name="password_toggle_content_description">显示密码</string>
+    <string name="player_aspect_crop">裁剪</string>
+    <string name="player_aspect_fit">适应屏幕</string>
+    <string name="player_aspect_stretch">拉伸</string>
+    <string name="player_seek_n_seconds">%d 秒</string>
+    <string name="player_sheets_add_ext_audio">添加外部音轨</string>
+    <string name="player_sheets_add_ext_sub">添加外部字幕</string>
+    <string name="player_sheets_audio_delay_card_title">音频延迟</string>
+    <string name="player_sheets_custom_buttons_title">自定义按钮</string>
+    <string name="player_sheets_decoder_formatted">%s (%s)</string>
+    <string name="player_sheets_delay_set_as_default">设为默认</string>
+    <string name="player_sheets_filters_Saturation">饱和度</string>
+    <string name="player_sheets_filters_brightness">亮度</string>
+    <string name="player_sheets_filters_contrast">对比度</string>
+    <string name="player_sheets_filters_gamma">伽马值</string>
+    <string name="player_sheets_filters_hue">色相</string>
+    <string name="player_sheets_filters_title">滤镜</string>
+    <string name="player_sheets_filters_warning">某些滤镜可能在当前的视频驱动程序上无法正常工作</string>
+    <string name="player_sheets_more_title">更多</string>
+    <string name="player_sheets_speed_make_default">设为默认速度</string>
+    <string name="player_sheets_speed_slider_label">速度</string>
+    <string name="player_sheets_stats_page_chip">第 %d 页</string>
+    <string name="player_sheets_stats_page_title">默认统计页</string>
+    <string name="player_sheets_sub_color_alpha">透明度</string>
+    <string name="player_sheets_sub_color_blue">蓝</string>
+    <string name="player_sheets_sub_color_green">绿</string>
+    <string name="player_sheets_sub_color_red">红</string>
+    <string name="player_sheets_sub_colors_card_title">颜色</string>
+    <string name="player_sheets_sub_delay_affected_subtitle">受影响的字幕</string>
+    <string name="player_sheets_sub_delay_audio_sound_heard">已听到声音</string>
+    <string name="player_sheets_sub_delay_card_delay">延迟</string>
+    <string name="player_sheets_sub_delay_card_speed">速度</string>
+    <string name="player_sheets_sub_delay_card_title">字幕延迟</string>
+    <string name="player_sheets_sub_delay_sound_sound_spotted">已看到声音对应的画面</string>
+    <string name="player_sheets_sub_delay_subtitle_text_seen">已看到字幕</string>
+    <string name="player_sheets_sub_delay_subtitle_type_primary">主要</string>
+    <string name="player_sheets_sub_delay_subtitle_type_primary_and_secondary">两者</string>
+    <string name="player_sheets_sub_delay_subtitle_type_secondary">次要</string>
+    <string name="player_sheets_sub_delay_subtitle_voice_heard">已听到语音</string>
+    <string name="player_sheets_sub_misc_card_title">杂项</string>
+    <string name="player_sheets_sub_override_ass">覆盖 ASS/SSA 字幕</string>
+    <string name="player_sheets_sub_position">位置</string>
+    <string name="player_sheets_sub_scale">缩放</string>
+    <string name="player_sheets_sub_typography_border_size">边框大小</string>
+    <string name="player_sheets_sub_typography_card_title">排版</string>
+    <string name="player_sheets_sub_typography_font">字体</string>
+    <string name="player_sheets_sub_typography_font_size">字体大小</string>
+    <string name="player_sheets_subtitles_border_style">边框样式</string>
+    <string name="player_sheets_subtitles_border_style_background_box">背景框</string>
+    <string name="player_sheets_subtitles_border_style_opaque_box">不透明框</string>
+    <string name="player_sheets_subtitles_border_style_outline_and_shadow">描边与阴影</string>
+    <string name="player_sheets_subtitles_color_background">背景</string>
+    <string name="player_sheets_subtitles_color_border">边框</string>
+    <string name="player_sheets_subtitles_color_text">文本</string>
+    <string name="player_sheets_subtitles_footer_secondary_sid_no_styles">次要字幕将不使用 ASS/SSA 样式</string>
+    <string name="player_sheets_subtitles_settings_title">字幕设置</string>
+    <string name="player_sheets_subtitles_shadow_offset">阴影偏移</string>
+    <string name="player_sheets_tracks_off">无</string>
+    <string name="pref_about_app_version">应用版本</string>
+    <string name="pref_about_oss_libraries">开源库</string>
+    <string name="pref_about_privacy_policy">隐私协议</string>
+    <string name="pref_about_summary">致谢，许可协议</string>
+    <string name="pref_about_title">关于</string>
+    <string name="pref_advanced">高级</string>
+    <string name="pref_advanced_clear_fonts_cache">清除字体缓存</string>
+    <string name="pref_advanced_clear_mpv_conf_cache">清除缓存的 mpv 配置</string>
+    <string name="pref_advanced_clear_playback_history">清除播放历史</string>
+    <string name="pref_advanced_clear_playback_history_confirm_subtitle">这将清除所有之前播放过的媒体的播放位置、选定的字幕和音轨及其延迟和速度。</string>
+    <string name="pref_advanced_clear_playback_history_confirm_title">确定清除播放历史吗？</string>
+    <string name="pref_advanced_cleared_fonts_cache">已清除字体缓存</string>
+    <string name="pref_advanced_cleared_mpv_conf_cache">已清除缓存的 mpv 配置</string>
+    <string name="pref_advanced_cleared_playback_history">已清除播放历史</string>
+    <string name="pref_advanced_input_conf">编辑 input.conf</string>
+    <string name="pref_advanced_mpv_conf">编辑 mpv.conf</string>
+    <string name="pref_advanced_mpv_conf_storage_location">选择配置文件存储位置</string>
+    <string name="pref_advanced_summary">配置文件位置，mpv.conf，input.conf</string>
+    <string name="pref_advanced_verbose_logging_summary">有助于调试，但可能会影响性能</string>
+    <string name="pref_advanced_verbose_logging_title">详细日志</string>
+    <string name="pref_appearance_category_theme">主题</string>
+    <string name="pref_appearance_darkmode_dark">暗色</string>
+    <string name="pref_appearance_darkmode_light">亮色</string>
+    <string name="pref_appearance_darkmode_system">系统</string>
+    <string name="pref_appearance_material_you_summary">启用 Material You 动态颜色</string>
+    <string name="pref_appearance_material_you_summary_disabled">只支持 Android 12 及以上版本</string>
+    <string name="pref_appearance_material_you_title">Material You</string>
+    <string name="pref_appearance_summary">深色模式，Material You</string>
+    <string name="pref_appearance_title">外观</string>
+    <string name="pref_audio">音频</string>
+    <string name="pref_audio_channels">声道</string>
+    <string name="pref_audio_channels_auto">自动</string>
+    <string name="pref_audio_channels_auto_safe">自动（安全）</string>
+    <string name="pref_audio_channels_mono">单声道</string>
+    <string name="pref_audio_channels_stereo">双声道</string>
+    <string name="pref_audio_channels_stereo_reversed">双声道（反转）</string>
+    <string name="pref_audio_pitch_correction_summary">防止音频在加速时变得音高过高，在减速时变得音高过低</string>
+    <string name="pref_audio_pitch_correction_title">启用自动音高修正</string>
+    <string name="pref_audio_preferred_language">在具有多个音频流的视频中，默认选择的音频语言。支持两位或三位字母的语言代码。多个值可以用逗号分隔。</string>
+    <string name="pref_audio_summary">首选语言，声道，音高修正</string>
+    <string name="pref_audio_volume_boost_cap">音量增强限制</string>
+    <string name="pref_custom_button_action_add">添加</string>
+    <string name="pref_custom_button_action_add_already_exists">按钮已存在！</string>
+    <string name="pref_custom_button_action_add_content_text">Lua 代码</string>
+    <string name="pref_custom_button_action_add_long_press_text">Lua 代码（长按）</string>
+    <string name="pref_custom_button_action_add_optional">（可选）</string>
+    <string name="pref_custom_button_action_add_required">* 必填</string>
+    <string name="pref_custom_button_action_add_title_text">标题</string>
+    <string name="pref_custom_button_add_button">添加自定义按钮</string>
+    <string name="pref_custom_button_delete_button">删除按钮</string>
+    <string name="pref_custom_button_delete_confirmation">是否要删除按钮“%s”？</string>
+    <string name="pref_custom_button_edit_button">编辑按钮</string>
+    <string name="pref_custom_button_edit_button_id">（ID：%d）</string>
+    <string name="pref_custom_button_empty">未添加任何自定义按钮，点击加号添加自定义按钮。</string>
+    <string name="pref_custom_buttons_summary">通过自定义按钮执行 Lua 代码</string>
+    <string name="pref_custom_buttons_title">自定义按钮</string>
+    <string name="pref_decoder">解码器</string>
+    <string name="pref_decoder_debanding_title">去色带</string>
+    <string name="pref_decoder_gpu_next_summary">新的视频渲染后端</string>
+    <string name="pref_decoder_gpu_next_title">使用 gpu-next</string>
+    <string name="pref_decoder_summary">硬件解码，像素格式，去色带</string>
+    <string name="pref_decoder_try_hw_dec_title">尝试硬件解码</string>
+    <string name="pref_decoder_yuv420p_summary">可能解决某些视频编码的黑屏问题，同时可能在降低质量的情况下提升性能</string>
+    <string name="pref_decoder_yuv420p_title">使用 YUV420P 像素格式</string>
+    <string name="pref_gesture">手势</string>
+    <string name="pref_gesture_double_tap_center_title">双击中间</string>
+    <string name="pref_gesture_double_tap_custom">自定义</string>
+    <string name="pref_gesture_double_tap_custom_info">当手势设为自定义时，可以通过 input.conf 来自定义操作。左侧的 keycode 为 0x10001，中间的 keycode 为 0x10002，右侧的 keycode 为 0x10003。</string>
+    <string name="pref_gesture_double_tap_left_title">双击左侧</string>
+    <string name="pref_gesture_double_tap_none">无</string>
+    <string name="pref_gesture_double_tap_play">播放/暂停</string>
+    <string name="pref_gesture_double_tap_right_title">双击右侧</string>
+    <string name="pref_gesture_double_tap_seek">定位</string>
+    <string name="pref_gesture_double_tap_title">双击</string>
+    <string name="pref_gesture_media_custom_info">当媒体控制设为自定义时，可以通过 input.conf 来自定义操作。上一个的 keycode 是 0x10004，播放/暂停的 keycode 是 0x10005，下一个的 keycode 是 0x10006。</string>
+    <string name="pref_gesture_media_next">下一个</string>
+    <string name="pref_gesture_media_play">播放/暂停</string>
+    <string name="pref_gesture_media_previous">上一个</string>
+    <string name="pref_gesture_media_title">媒体控制</string>
+    <string name="pref_gesture_summary">双击，媒体控制</string>
+    <string name="pref_player">播放器</string>
+    <string name="pref_player_automatically_enter_pip">自动切换到画中画</string>
+    <string name="pref_player_close_after_eof">播放结束后关闭</string>
+    <string name="pref_player_controls">控制</string>
+    <string name="pref_player_controls_allow_gestures_in_panels">允许在面板中使用手势</string>
+    <string name="pref_player_controls_display_volume_as_percentage">将音量显示为百分比</string>
+    <string name="pref_player_controls_show_chapter_indicator">显示当前章节指示器</string>
+    <string name="pref_player_controls_show_chapters_button">显示章节选择按钮</string>
+    <string name="pref_player_controls_show_chapters_summary">只会在章节存在时显示</string>
+    <string name="pref_player_controls_show_loading_circle">显示加载动画</string>
+    <string name="pref_player_display">显示</string>
+    <string name="pref_player_display_hide_player_control_time">播放器控制栏隐藏超时</string>
+    <string name="pref_player_display_panel_opacity">面板不透明度</string>
+    <string name="pref_player_display_reduce_player_animation">减少播放器动画</string>
+    <string name="pref_player_display_show_status_bar">与控制栏一起显示系统状态栏</string>
+    <string name="pref_player_double_tap_seek_duration">双击跳转时长</string>
+    <string name="pref_player_double_tap_to_pause">双击暂停</string>
+    <string name="pref_player_double_tap_to_seek">双击跳转</string>
+    <string name="pref_player_draw_over_cutout">在异形屏缺口上绘制</string>
+    <string name="pref_player_gestures">手势</string>
+    <string name="pref_player_gestures_brightness">亮度调整手势</string>
+    <string name="pref_player_gestures_hold_for_double_speed">长按二倍速</string>
+    <string name="pref_player_gestures_hold_for_multiple_speed">长按多倍速</string>
+    <string name="pref_player_gestures_seek">水平跳转手势</string>
+    <string name="pref_player_gestures_volume">音量调整手势</string>
+    <string name="pref_player_orientation">屏幕方向</string>
+    <string name="pref_player_orientation_free">自由旋转</string>
+    <string name="pref_player_orientation_landscape">横屏</string>
+    <string name="pref_player_orientation_portrait">竖屏</string>
+    <string name="pref_player_orientation_reverse_landscape">反向横屏</string>
+    <string name="pref_player_orientation_reverse_portrait">反向竖屏</string>
+    <string name="pref_player_orientation_sensor_landscape">传感器横屏</string>
+    <string name="pref_player_orientation_sensor_portrait">传感器竖屏</string>
+    <string name="pref_player_orientation_video">视频方向</string>
+    <string name="pref_player_precise_seeking_summary">跳转到精确的位置而非关键帧（慢）</string>
+    <string name="pref_player_precise_seeking_title">精确跳转</string>
+    <string name="pref_player_remember_brightness">记住屏幕亮度</string>
+    <string name="pref_player_save_position_on_quit">退出时保存播放进度</string>
+    <string name="pref_player_seeking_title">跳转</string>
+    <string name="pref_player_show_seekbar_when_seeking">在跳转时显示进度条</string>
+    <string name="pref_player_summary">屏幕方向，手势和控制</string>
+    <string name="pref_preferences">设置</string>
+    <string name="pref_preferred_languages">首选语言</string>
+    <string name="pref_subtitles">字幕</string>
+    <string name="pref_subtitles_autoload_summary">自动加载同名外部字幕。当有多个文件时，默认启用第一个。（仅在使用文件选择器时有效）</string>
+    <string name="pref_subtitles_autoload_title">自动加载字幕</string>
+    <string name="pref_subtitles_fonts_dir">字体目录</string>
+    <string name="pref_subtitles_preferred_language">在具有多个字幕的视频中，默认选择的字幕语言。支持两位或三位字母的语言代码。多个值可以用逗号分隔。</string>
+    <string name="pref_subtitles_summary">首选语言，字体</string>
+    <string msgid="6685851473431805375" name="preference_copied">"已将“<ns1:g id="SUMMARY">%1$s</ns1:g>”复制到剪贴板。"</string>
+    <string msgid="5941395253238309765" name="range_end">"范围终点"</string>
+    <string msgid="7097486360902471446" name="range_start">"范围起点"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"搜索"</string>
+    <string name="searchview_clear_text_content_description">清除文字</string>
+    <string name="searchview_navigation_content_description">返回</string>
+    <string msgid="6043586758067023" name="selected">"已选择"</string>
+    <string name="show_icon_on_double_tap_to_seek">显示跳转时间</string>
+    <string name="show_splash_ovals_on_double_tap_to_seek">双击跳转时显示涟漪效果</string>
+    <string name="show_time_on_double_tap_to_seek">显示跳转图标</string>
+    <string name="side_sheet_accessibility_pane_title">侧边动作条</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"提醒"</string>
+    <string msgid="4139871816613051306" name="state_empty">"空白"</string>
+    <string msgid="5834637030682409883" name="state_off">"已关闭"</string>
+    <string msgid="1490883874751719580" name="state_on">"已开启"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="9167775378838880170" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>、<ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
+    <string name="swap_the_volume_and_brightness_slider">交换音量与亮度手势</string>
+    <string msgid="2561197295334830845" name="switch_role">"开关"</string>
+    <string msgid="1672349317127674378" name="tab">"标签页"</string>
+    <string msgid="5946805113151406391" name="template_percent">"百分之 <ns1:g id="PERCENTAGE">%1$d</ns1:g>。"</string>
+    <string name="timer_picker_enter_timer">输入时间</string>
+    <string name="timer_picker_pick_time">选择时间</string>
+    <string name="timer_remaining">剩余 %s</string>
+    <string name="timer_title">休眠计时器</string>
+    <string name="toast_sleep_timer_ended">睡眠定时器结束</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"提示"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"显示提示"</string>
+    <string msgid="3140233346420563315" name="v7_preference_off">"已关闭"</string>
+    <string msgid="89551595707643515" name="v7_preference_on">"已开启"</string>
+</resources>

@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d nova notificação</item>
+    <item quantity="other">%d novas notificações</item>
+  </plurals>
+    <plurals name="plural_items">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+    <string msgid="5976598919945601918" name="abc_action_bar_home_description">"Navegar para a página inicial"</string>
+    <string msgid="8388173803310557296" name="abc_action_bar_up_description">"Navegar para cima"</string>
+    <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"Mais opções"</string>
+    <string msgid="4692188335987374352" name="abc_action_mode_done">"Concluído"</string>
+    <string msgid="1189761859438369441" name="abc_activity_chooser_view_see_all">"Ver tudo"</string>
+    <string msgid="2165779757652331008" name="abc_activitychooserview_choose_application">"Selecionar um app"</string>
+    <string msgid="4215997306490295099" name="abc_capital_off">"DESATIVADO"</string>
+    <string msgid="884982626291842264" name="abc_capital_on">"ATIVADO"</string>
+    <string msgid="8833365367933412986" name="abc_menu_alt_shortcut_label">"Alt+"</string>
+    <string msgid="2223301931652355242" name="abc_menu_ctrl_shortcut_label">"Ctrl+"</string>
+    <string msgid="838001238306846836" name="abc_menu_delete_shortcut_label">"delete"</string>
+    <string msgid="7986526966204849475" name="abc_menu_enter_shortcut_label">"enter"</string>
+    <string msgid="375214403600139847" name="abc_menu_function_shortcut_label">"Function+"</string>
+    <string msgid="4192209724446364286" name="abc_menu_meta_shortcut_label">"Meta+"</string>
+    <string msgid="4741552369836443843" name="abc_menu_shift_shortcut_label">"Shift+"</string>
+    <string msgid="5473865519181928982" name="abc_menu_space_shortcut_label">"espaço"</string>
+    <string msgid="6180552449598693998" name="abc_menu_sym_shortcut_label">"Sym+"</string>
+    <string msgid="5520303668377388990" name="abc_prepend_shortcut_label">"Menu+"</string>
+    <string msgid="7208076849092622260" name="abc_search_hint">"Pesquisar…"</string>
+    <string msgid="3741173234950517107" name="abc_searchview_description_clear">"Limpar consulta"</string>
+    <string msgid="693312494995508443" name="abc_searchview_description_query">"Consulta de pesquisa"</string>
+    <string msgid="3417662926640357176" name="abc_searchview_description_search">"Pesquisar"</string>
+    <string msgid="1486535517437947103" name="abc_searchview_description_submit">"Enviar consulta"</string>
+    <string msgid="2293578557972875415" name="abc_searchview_description_voice">"Pesquisa por voz"</string>
+    <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"Compartilhar com"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"Compartilhar com <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
+    <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"Recolher"</string>
+    <string msgid="8719607706653693137" name="androidx_compose_foundation_autofill">"Preencher automaticamente"</string>
+    <string msgid="1150566100598813236" name="androidx_compose_ui_autofill">"Preencher automaticamente"</string>
+    <string name="app_name" translatable="false">mpvKt</string>
+    <string name="bottomsheet_action_collapse">Fechar</string>
+    <string name="bottomsheet_action_collapse_description">Fechar a página inferior</string>
+    <string name="bottomsheet_action_expand">Abrir</string>
+    <string name="bottomsheet_action_expand_description">Abrir a página inferior</string>
+    <string name="bottomsheet_action_expand_halfway">Expandir até a metade</string>
+    <string name="bottomsheet_action_half_expand_description">Abrir parcialmente a página inferior</string>
+    <string name="bottomsheet_drag_handle_content_description">Alça de arrastar</string>
+    <string name="bottomsheet_state_collapsed">Fechada</string>
+    <string name="bottomsheet_state_expanded">Aberta</string>
+    <string name="bottomsheet_state_half_expanded">Aberta até a metade</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Atender"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Vídeo"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Recusar"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Desligar"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Alguém está ligando"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Chamada em andamento"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Filtrando uma ligação recebida"</string>
+    <string name="character_counter_content_description">Caracteres inseridos: %1$d de %2$d</string>
+    <string name="character_counter_overflowed_content_description">Limite de %2$d caracteres excedido em %1$d</string>
+    <string name="clear_text_end_icon_content_description">Limpar texto</string>
+    <string msgid="406453423630273620" name="close_drawer">"Fechar menu de navegação"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Fechar planilha"</string>
+    <string msgid="6083905920877235314" name="copy">"Copiar"</string>
+    <string name="crash_screen_logs_title">Registros de falha:</string>
+    <string name="crash_screen_restart">Reiniciar o aplicativo</string>
+    <string name="crash_screen_share">Compartilhar registros de falha</string>
+    <string name="crash_screen_subtitle">Parece que %s encontrou um erro inesperado. Considere compartilhar os registros de falha em um issue no GitHub.</string>
+    <string name="crash_screen_title">Oops</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Entrada inválida"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Janela pop-up"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Menu suspenso"</string>
+    <string name="error_a11y_label">Erro: inválido</string>
+    <string name="error_icon_content_description">Erro</string>
+    <string msgid="2427401033573778270" name="expand_button_title">"Avançado"</string>
+    <string name="exposed_dropdown_menu_content_description">Mostrar menu suspenso</string>
+    <string name="generic_cancel">Cancelar</string>
+    <string name="generic_confirm">Confirmar</string>
+    <string name="generic_disabled">Desativado</string>
+    <string name="generic_ok">OK</string>
+    <string name="generic_reset">Redefinir</string>
+    <string name="generic_share">Compartilhar</string>
+    <string name="generic_unit_ms">ms</string>
+    <string name="github_repo_url" translatable="false">https://github.com/abdallahmehiz/mpvKt</string>
+    <string name="home_invalid_protocol">Protocolo inválido</string>
+    <string name="home_open_file_picker">Abrir seletor de arquivos</string>
+    <string name="home_open_url">Abrir URL</string>
+    <string name="home_pick_file">Selecionar um arquivo</string>
+    <string name="home_url_input_label">URL</string>
+    <string name="icon_content_description">Ícone de caixa de diálogo</string>
+    <string msgid="6827826412747255547" name="in_progress">"Em andamento"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Parcialmente selecionada"</string>
+    <string name="item_view_role_description">Guia</string>
+    <string name="m3_loading_indicator_content_description">Carregando</string>
+    <string name="m3_overflow_linear_layout_button_content_description">Menu flutuante</string>
+    <string name="m3_overflow_linear_layout_button_tooltip_text">Mais opções</string>
+    <string msgid="2988463736136100848" name="m3c_bottom_sheet_collapse_description">"Fechar página inferior"</string>
+    <string msgid="1555567894577437024" name="m3c_bottom_sheet_dismiss_description">"Dispensar página inferior"</string>
+    <string msgid="8403354765404029791" name="m3c_bottom_sheet_drag_handle_description">"Alça de arrastar"</string>
+    <string msgid="6670819569745899763" name="m3c_bottom_sheet_expand_description">"Abrir página inferior"</string>
+    <string msgid="3010635850035863127" name="m3c_bottom_sheet_pane_title">"Página inferior"</string>
+    <string msgid="8166741421776570875" name="m3c_date_input_headline">"Data informada"</string>
+    <string msgid="229313757840775812" name="m3c_date_input_headline_description">"Data informada: %1$s"</string>
+    <string msgid="6116910750161463197" name="m3c_date_input_invalid_for_pattern">"A data não está no padrão esperado: %1$s"</string>
+    <string msgid="2521768508935305279" name="m3c_date_input_invalid_not_allowed">"Data não permitida: %1$s"</string>
+    <string msgid="7052898923934555305" name="m3c_date_input_invalid_year_range">"A data está fora do intervalo de anos esperado: %1$s a %2$s"</string>
+    <string msgid="2895559812010326913" name="m3c_date_input_label">"Data"</string>
+    <string msgid="1237013946323089826" name="m3c_date_input_no_input_description">"Nenhum"</string>
+    <string msgid="7306227249789210568" name="m3c_date_input_title">"Selecionar data"</string>
+    <string msgid="7605002211875882969" name="m3c_date_picker_headline">"Data selecionada"</string>
+    <string msgid="3664277305226978227" name="m3c_date_picker_headline_description">"Seleção atual: %1$s"</string>
+    <string msgid="8436650776581492840" name="m3c_date_picker_navigate_to_year_description">"Navegar para o ano de %1$s"</string>
+    <string msgid="5811000998184572395" name="m3c_date_picker_no_selection_description">"Nenhum"</string>
+    <string msgid="7813882352367152251" name="m3c_date_picker_scroll_to_earlier_years">"Role a tela para mostrar anos anteriores"</string>
+    <string msgid="5727367015496556177" name="m3c_date_picker_scroll_to_later_years">"Role a tela para mostrar anos seguintes"</string>
+    <string msgid="1804346892470238807" name="m3c_date_picker_switch_to_calendar_mode">"Usar o modo de entrada na agenda"</string>
+    <string msgid="395627960681594326" name="m3c_date_picker_switch_to_day_selection">"Deslize para selecionar um ano ou toque para voltar à seleção de dia"</string>
+    <string msgid="2219746470065162704" name="m3c_date_picker_switch_to_input_mode">"Usar o modo de entrada de texto"</string>
+    <string msgid="7142101321095356500" name="m3c_date_picker_switch_to_next_month">"Mudar para o próximo mês"</string>
+    <string msgid="228438865139394590" name="m3c_date_picker_switch_to_previous_month">"Mudar para o mês anterior"</string>
+    <string msgid="791651718641787594" name="m3c_date_picker_switch_to_year_selection">"Usar a seleção de ano"</string>
+    <string msgid="7430790972741451689" name="m3c_date_picker_title">"Selecionar data"</string>
+    <string msgid="3199387177749801575" name="m3c_date_picker_today_description">"Hoje"</string>
+    <string msgid="2068382232816991922" name="m3c_date_picker_year_picker_pane_title">"Seletor de ano visível"</string>
+    <string msgid="3190049423327661366" name="m3c_date_range_input_invalid_range_input">"Período inválido"</string>
+    <string msgid="3148384720560189467" name="m3c_date_range_input_title">"Informar datas"</string>
+    <string msgid="2138321128465719402" name="m3c_date_range_picker_day_in_range">"Dentro do período"</string>
+    <string msgid="4947636797751277713" name="m3c_date_range_picker_end_headline">"Data de término"</string>
+    <string msgid="602077859540990149" name="m3c_date_range_picker_scroll_to_next_month">"Role a tela para mostrar o mês seguinte"</string>
+    <string msgid="4592174524846109496" name="m3c_date_range_picker_scroll_to_previous_month">"Role a tela para mostrar o mês anterior"</string>
+    <string msgid="4665981448952749820" name="m3c_date_range_picker_start_headline">"Data de início"</string>
+    <string msgid="3134165431120340385" name="m3c_date_range_picker_title">"Selecionar datas"</string>
+    <string msgid="7617233117134790350" name="m3c_dialog">"Caixa de diálogo"</string>
+    <string msgid="3177828188723359358" name="m3c_dropdown_menu_collapsed">"Fechado"</string>
+    <string msgid="2360841780724299882" name="m3c_dropdown_menu_expanded">"Aberto"</string>
+    <string msgid="8687821690726149911" name="m3c_dropdown_menu_toggle">"Ativar/desativar o menu suspenso"</string>
+    <string msgid="6072492480528318635" name="m3c_floating_toolbar_collapse">"Fechar barra de ferramentas"</string>
+    <string msgid="6880757017246780255" name="m3c_floating_toolbar_expand">"Abrir barra de ferramentas"</string>
+    <string msgid="6152806324422087846" name="m3c_search_bar_search">"Pesquisar"</string>
+    <string msgid="6152755701819882931" name="m3c_snackbar_dismiss">"Dispensar"</string>
+    <string msgid="3868801555855510515" name="m3c_snackbar_pane_title">"Alerta"</string>
+    <string msgid="7655536806087401899" name="m3c_suggestions_available">"Sugestões abaixo"</string>
+    <string msgid="409352516511718051" name="m3c_time_input_dialog_title">"Insira a hora"</string>
+    <string msgid="2786685010796619560" name="m3c_time_picker_am">"AM"</string>
+    <string msgid="7412665527536641863" name="m3c_time_picker_dialog_title">"Selecione o horário"</string>
+    <string msgid="2349193472625211372" name="m3c_time_picker_hour">"Hora"</string>
+    <string msgid="9179527532316922345" name="m3c_time_picker_hour_24h_suffix">"%1$d horas"</string>
+    <string msgid="8876759303332837035" name="m3c_time_picker_hour_selection">"Selecione a hora"</string>
+    <string msgid="3458167507790628988" name="m3c_time_picker_hour_suffix">"%1$dh"</string>
+    <string msgid="6973808109666874069" name="m3c_time_picker_hour_text_field">"por hora"</string>
+    <string msgid="4313071914266462005" name="m3c_time_picker_minute">"Minuto"</string>
+    <string msgid="4699133535056739733" name="m3c_time_picker_minute_selection">"Selecione os minutos"</string>
+    <string msgid="5064177921781937179" name="m3c_time_picker_minute_suffix">"%1$d minutos"</string>
+    <string msgid="7661234488295443182" name="m3c_time_picker_minute_text_field">"por minutos"</string>
+    <string msgid="5865171949528594571" name="m3c_time_picker_period_toggle_description">"Selecione AM ou PM"</string>
+    <string msgid="6616362054113087709" name="m3c_time_picker_pm">"PM"</string>
+    <string msgid="4145073906612931838" name="m3c_time_picker_toggle_keyboard">"Mudar para o modo de entrada de texto para informar o horário"</string>
+    <string msgid="8841786098195101324" name="m3c_time_picker_toggle_touch">"Mudar para o modo de relógio para informar o horário"</string>
+    <string msgid="1805687647081129904" name="m3c_tooltip_long_press_label">"Mostrar dica"</string>
+    <string msgid="5460405025248574620" name="m3c_tooltip_pane_description">"Dica"</string>
+    <string msgid="6564222473543418073" name="m3c_wide_navigation_rail_close_rail">"Fechar coluna"</string>
+    <string msgid="8350283435461615411" name="m3c_wide_navigation_rail_pane_title">"Coluna de navegação"</string>
+    <string name="material_clock_toggle_content_description">Selecionar AM ou PM</string>
+    <string name="material_hour_24h_suffix">%1$s horas</string>
+    <string name="material_hour_selection">Selecionar horário</string>
+    <string name="material_hour_suffix">%1$s em ponto</string>
+    <string name="material_minute_selection">Selecione os minutos</string>
+    <string name="material_minute_suffix">%1$s minutos</string>
+    <string name="material_slider_range_end">Fim do intervalo</string>
+    <string name="material_slider_range_start">Início do intervalo</string>
+    <string name="material_slider_value">Valor</string>
+    <string name="material_timepicker_am">AM</string>
+    <string name="material_timepicker_clock_mode_description">Alterne para o modo de relógio para informar o horário.</string>
+    <string name="material_timepicker_clock_mode_tooltip">Mudar para o modo de relógio</string>
+    <string name="material_timepicker_hour">Hora</string>
+    <string name="material_timepicker_hour_error">Selecione de 1 a 12h</string>
+    <string name="material_timepicker_hour_error_24h">Selecione de 0 a 23h</string>
+    <string name="material_timepicker_minute">Minuto</string>
+    <string name="material_timepicker_minute_error">Selecione de 0 a 59min</string>
+    <string name="material_timepicker_pm">PM</string>
+    <string name="material_timepicker_select_time">Selecionar horário</string>
+    <string name="material_timepicker_text_input_mode_description">Alterne para o modo de entrada de texto para informar o horário.</string>
+    <string name="material_timepicker_text_input_mode_tooltip">Usar o modo de entrada de texto</string>
+    <string msgid="8471891128988107974" name="mc2_snackbar_pane_title">"Alerta"</string>
+    <string name="mtrl_badge_numberless_content_description">Nova notificação</string>
+    <string name="mtrl_button_collapsed_content_description">Fechado</string>
+    <string name="mtrl_button_expanded_content_description">Aberto</string>
+    <string name="mtrl_button_overflow_icon_content_description">Menu flutuante</string>
+    <string name="mtrl_checkbox_state_description_checked">Marcada</string>
+    <string name="mtrl_checkbox_state_description_indeterminate">Parcialmente marcada</string>
+    <string name="mtrl_checkbox_state_description_unchecked">Desmarcada</string>
+    <string name="mtrl_chip_close_icon_content_description">Remover %1$s</string>
+    <string name="mtrl_exceed_max_badge_number_content_description" ns2:ignore="PluralsCandidate">Mais de %1$d novas notificações</string>
+    <string name="mtrl_picker_a11y_next_month">Alterar para o próximo mês</string>
+    <string name="mtrl_picker_a11y_prev_month">Alterar para o mês anterior</string>
+    <string name="mtrl_picker_announce_current_range_selection">Seleção da data de início: %1$s. Seleção da data de término: %2$s</string>
+    <string name="mtrl_picker_announce_current_selection">Seleção atual: %1$s</string>
+    <string name="mtrl_picker_announce_current_selection_none">nenhuma</string>
+    <string name="mtrl_picker_cancel">Cancelar</string>
+    <string name="mtrl_picker_confirm">OK</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">Selecionar data</string>
+    <string name="mtrl_picker_date_header_unselected">Data selecionada</string>
+    <string name="mtrl_picker_day_of_week_column_header">%1$s</string>
+    <string name="mtrl_picker_end_date_description">Data de término: %1$s</string>
+    <string name="mtrl_picker_invalid_format">Formato inválido.</string>
+    <string name="mtrl_picker_invalid_format_example">Exemplo: %1$s</string>
+    <string name="mtrl_picker_invalid_format_use">Usar %1$s</string>
+    <string name="mtrl_picker_invalid_range">Intervalo inválido.</string>
+    <string name="mtrl_picker_navigate_to_current_year_description">Ir para o ano atual %1$d</string>
+    <string name="mtrl_picker_navigate_to_year_description">Ir para o ano %1$d</string>
+    <string name="mtrl_picker_out_of_range">Fora do intervalo: %1$s</string>
+    <string name="mtrl_picker_pane_title_calendar_view">Visualização de calendário</string>
+    <string name="mtrl_picker_pane_title_year_view">Visualização do ano</string>
+    <string name="mtrl_picker_range_header_only_end_selected">Data de início – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – Data de término</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">Selecionar intervalo</string>
+    <string name="mtrl_picker_range_header_unselected">Data de início – Data de término</string>
+    <string name="mtrl_picker_save">Salvar</string>
+    <string name="mtrl_picker_start_date_description">Data de início: %1$s</string>
+    <string name="mtrl_picker_text_input_date_hint">Data</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">Data de término</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">Data de início</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">a</string>
+    <string name="mtrl_picker_today_description">Hoje %1$s</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">Mudar para o modo de entrada da agenda</string>
+    <string name="mtrl_picker_toggle_to_day_selection">Mudar para a visualização da Agenda</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">Mudar para o modo de entrada de texto</string>
+    <string name="mtrl_picker_toggle_to_year_selection">Mudar para a visualização de ano</string>
+    <string name="mtrl_timepicker_cancel">Cancelar</string>
+    <string name="mtrl_timepicker_confirm">OK</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Menu de navegação"</string>
+    <string msgid="6610465462668679431" name="not_selected">"Não selecionado"</string>
+    <string msgid="6573031135582639649" name="not_set">"Não definido"</string>
+    <string name="numeric_chooser_value_too_big">Valor muito grande</string>
+    <string name="numeric_chooser_value_too_small">Valor muito pequeno</string>
+    <string name="password_toggle_content_description">Exibir senha</string>
+    <string name="player_aspect_crop">Cortar</string>
+    <string name="player_aspect_fit">Ajustar à tela</string>
+    <string name="player_aspect_stretch">Esticar</string>
+    <string name="player_gesture_seek_indicator" translatable="false">%c%s\n[%s]</string>
+    <string name="player_seek_n_seconds">%d segundos</string>
+    <string name="player_sheets_add_ext_audio">Adicionar faixas de áudio externas</string>
+    <string name="player_sheets_add_ext_sub">Adicionar legendas externas</string>
+    <string name="player_sheets_audio_delay_card_title">Atraso de áudio</string>
+    <string name="player_sheets_decoder_formatted">%s (%s)</string>
+    <string name="player_sheets_delay_set_as_default">Definir como padrão</string>
+    <string name="player_sheets_filters_Saturation">Saturação</string>
+    <string name="player_sheets_filters_brightness">Brilho</string>
+    <string name="player_sheets_filters_contrast">Contraste</string>
+    <string name="player_sheets_filters_gamma">Gama</string>
+    <string name="player_sheets_filters_hue">Matiz</string>
+    <string name="player_sheets_filters_title">Filtros</string>
+    <string name="player_sheets_filters_warning">Alguns filtros podem não funcionar no seu driver de vídeo atual</string>
+    <string name="player_sheets_more_title">Mais</string>
+    <string name="player_sheets_speed_make_default">Definir velocidade padrão</string>
+    <string name="player_sheets_speed_slider_label">Velocidade</string>
+    <string name="player_sheets_stats_page_chip">Página %d</string>
+    <string name="player_sheets_stats_page_title">Página de estatísticas padrão</string>
+    <string name="player_sheets_sub_color_alpha">Alfa</string>
+    <string name="player_sheets_sub_color_blue">Azul</string>
+    <string name="player_sheets_sub_color_green">Verde</string>
+    <string name="player_sheets_sub_color_red">Vermelho</string>
+    <string name="player_sheets_sub_colors_card_title">Cores</string>
+    <string name="player_sheets_sub_delay_affected_subtitle">Legenda afetada</string>
+    <string name="player_sheets_sub_delay_audio_sound_heard">Som ouvido</string>
+    <string name="player_sheets_sub_delay_card_delay">Atraso</string>
+    <string name="player_sheets_sub_delay_card_speed">Velocidade</string>
+    <string name="player_sheets_sub_delay_card_title">Atraso das legendas</string>
+    <string name="player_sheets_sub_delay_sound_sound_spotted">Som detectado</string>
+    <string name="player_sheets_sub_delay_subtitle_text_seen">Texto visto</string>
+    <string name="player_sheets_sub_delay_subtitle_type_primary">Primária</string>
+    <string name="player_sheets_sub_delay_subtitle_type_primary_and_secondary">Ambas</string>
+    <string name="player_sheets_sub_delay_subtitle_type_secondary">Secundária</string>
+    <string name="player_sheets_sub_delay_subtitle_voice_heard">Voz ouvida</string>
+    <string name="player_sheets_sub_misc_card_title">Diversos</string>
+    <string name="player_sheets_sub_override_ass">Substituir legendas ASS/SSA</string>
+    <string name="player_sheets_sub_position">Posição</string>
+    <string name="player_sheets_sub_scale">Escala</string>
+    <string name="player_sheets_sub_typography_border_size">Tamanho da borda</string>
+    <string name="player_sheets_sub_typography_card_title">Tipografia</string>
+    <string name="player_sheets_sub_typography_font">Fonte</string>
+    <string name="player_sheets_sub_typography_font_size">Tamanho da fonte</string>
+    <string name="player_sheets_subtitles_border_style">Estilo da borda</string>
+    <string name="player_sheets_subtitles_border_style_background_box">Caixa de fundo</string>
+    <string name="player_sheets_subtitles_border_style_opaque_box">Caixa opaca</string>
+    <string name="player_sheets_subtitles_border_style_outline_and_shadow">Contorno e sombra</string>
+    <string name="player_sheets_subtitles_color_background">Fundo</string>
+    <string name="player_sheets_subtitles_color_border">Borda</string>
+    <string name="player_sheets_subtitles_color_text">Texto</string>
+    <string name="player_sheets_subtitles_footer_secondary_sid_no_styles">Legendas secundárias não terão formatação ASS/SSA.</string>
+    <string name="player_sheets_subtitles_settings_title">Configurações de legendas</string>
+    <string name="player_sheets_subtitles_shadow_offset">Deslocamento da sombra</string>
+    <string name="player_sheets_track_lang_wo_title" translatable="false">#%d: %s</string>
+    <string name="player_sheets_track_title_w_lang" translatable="false">#%d: %s (%s)</string>
+    <string name="player_sheets_track_title_wo_lang" translatable="false">#%d: %s</string>
+    <string name="player_sheets_tracks_off">Desligado</string>
+    <string name="player_speed" translatable="false">%.2fx</string>
+    <string name="pref_about_app_version">Versão do app</string>
+    <string name="pref_about_app_version_formatted" translatable="false">%s %s</string>
+    <string name="pref_about_oss_libraries">Bibliotecas de código aberto</string>
+    <string name="pref_about_summary">Agradecimentos, licenças</string>
+    <string name="pref_about_title">Sobre</string>
+    <string name="pref_advanced">Avançado</string>
+    <string name="pref_advanced_clear_fonts_cache">Limpar cache de fontes</string>
+    <string name="pref_advanced_clear_mpv_conf_cache">Limpar cache de configurações do mpv</string>
+    <string name="pref_advanced_clear_playback_history">Limpar histórico de reprodução</string>
+    <string name="pref_advanced_clear_playback_history_confirm_subtitle">Isso limpará todas as posições de reprodução anteriores, legendas selecionadas e faixas de áudio, juntamente com seus atrasos e velocidades</string>
+    <string name="pref_advanced_clear_playback_history_confirm_title">Tem certeza de que deseja limpar seu histórico de reprodução?</string>
+    <string name="pref_advanced_cleared_fonts_cache">Cache de fontes limpo</string>
+    <string name="pref_advanced_cleared_mpv_conf_cache">Cache de configurações do mpv limpo</string>
+    <string name="pref_advanced_cleared_playback_history">Histórico de reprodução limpo</string>
+    <string name="pref_advanced_input_conf">Editar input.conf</string>
+    <string name="pref_advanced_mpv_conf">Editar mpv.conf</string>
+    <string name="pref_advanced_mpv_conf_storage_location">Escolher local de armazenamento de configuração do mpv</string>
+    <string name="pref_advanced_summary">Localização de configuração, mpv.conf, input.conf</string>
+    <string name="pref_advanced_verbose_logging_summary">Ajuda na depuração, mas pode prejudicar o desempenho</string>
+    <string name="pref_advanced_verbose_logging_title">Registro detalhado</string>
+    <string name="pref_appearance_category_theme">Tema</string>
+    <string name="pref_appearance_darkmode_dark">Escuro</string>
+    <string name="pref_appearance_darkmode_light">Claro</string>
+    <string name="pref_appearance_darkmode_system">Sistema</string>
+    <string name="pref_appearance_material_you_summary">Ativa as cores dinâmicas do Material You.</string>
+    <string name="pref_appearance_material_you_summary_disabled">Disponível apenas para Android 12 ou superior.</string>
+    <string name="pref_appearance_material_you_title">Material You</string>
+    <string name="pref_appearance_summary">Modo escuro, Material You</string>
+    <string name="pref_appearance_title">Aparência</string>
+    <string name="pref_audio">Áudio</string>
+    <string name="pref_audio_channels">Canais de áudio</string>
+    <string name="pref_audio_channels_auto">Automático</string>
+    <string name="pref_audio_channels_auto_safe">Automático seguro</string>
+    <string name="pref_audio_channels_mono">Mono</string>
+    <string name="pref_audio_channels_stereo">Estéreo</string>
+    <string name="pref_audio_channels_stereo_reversed">Estéreo invertido</string>
+    <string name="pref_audio_pitch_correction_summary">Evita que o áudio fique agudo em velocidades mais rápidas e grave em velocidades mais lentas.</string>
+    <string name="pref_audio_pitch_correction_title">Ativar correção de tom de áudio</string>
+    <string name="pref_audio_preferred_language">Idioma(s) do áudio a ser selecionado por padrão em vídeos com múltiplas faixas de áudio; códigos de duas ou três letras para idiomas funcionam. Vários valores podem ser separados por vírgula.</string>
+    <string name="pref_audio_summary">Idiomas preferidos, canais de áudio, correção de tom</string>
+    <string name="pref_audio_volume_boost_cap">Limite de aumento de volume</string>
+    <string name="pref_decoder">Decodificador</string>
+    <string name="pref_decoder_debanding_title">Remoção de artefatos</string>
+    <string name="pref_decoder_gpu_next_summary">Um novo backend de renderização.</string>
+    <string name="pref_decoder_gpu_next_title">Usar gpu-next</string>
+    <string name="pref_decoder_summary">Decodificação por hardware, formato de pixel, remoção de artefatos</string>
+    <string name="pref_decoder_try_hw_dec_title">Tentar decodificação por hardware</string>
+    <string name="pref_decoder_yuv420p_summary">Pode corrigir telas pretas em alguns codecs de vídeo; também pode melhorar o desempenho à custa da qualidade.</string>
+    <string name="pref_decoder_yuv420p_title">Usar formato de pixel YUV420P</string>
+    <string name="pref_player">Reprodutor</string>
+    <string name="pref_player_automatically_enter_pip">Alternar automaticamente para PiP</string>
+    <string name="pref_player_close_after_eof">Fechar após o fim da reprodução</string>
+    <string name="pref_player_controls">Controles</string>
+    <string name="pref_player_controls_allow_gestures_in_panels">Permitir gestos em painéis</string>
+    <string name="pref_player_controls_display_volume_as_percentage">Mostrar volume em porcentagem</string>
+    <string name="pref_player_controls_show_chapter_indicator">Mostrar indicador de capítulo atual</string>
+    <string name="pref_player_controls_show_chapters_button">Mostrar botão de seleção de capítulos</string>
+    <string name="pref_player_controls_show_chapters_summary">Aparece apenas se o vídeo tiver capítulos.</string>
+    <string name="pref_player_controls_show_loading_circle">Mostrar círculo de carregamento</string>
+    <string name="pref_player_display_show_status_bar">Mostrar barra de status do sistema com controles</string>
+    <string name="pref_player_double_tap_seek_duration">Duração da busca por toque duplo</string>
+    <string name="pref_player_double_tap_to_pause">Toque duplo para pausar</string>
+    <string name="pref_player_double_tap_to_seek">Toque duplo para buscar</string>
+    <string name="pref_player_draw_over_cutout">Desenhar sobre o recorte da tela</string>
+    <string name="pref_player_gestures">Gestos</string>
+    <string name="pref_player_gestures_brightness">Gestos de brilho</string>
+    <string name="pref_player_gestures_hold_for_double_speed">Segure para velocidade em 2x</string>
+    <string name="pref_player_gestures_seek">Gestos de busca horizontal</string>
+    <string name="pref_player_gestures_volume">Gestos de volume</string>
+    <string name="pref_player_orientation">Orientação</string>
+    <string name="pref_player_orientation_free">Livre</string>
+    <string name="pref_player_orientation_landscape">Paisagem</string>
+    <string name="pref_player_orientation_portrait">Retrato</string>
+    <string name="pref_player_orientation_reverse_landscape">Paisagem invertida</string>
+    <string name="pref_player_orientation_reverse_portrait">Retrato invertido</string>
+    <string name="pref_player_orientation_sensor_landscape">Paisagem por sensor</string>
+    <string name="pref_player_orientation_sensor_portrait">Retrato por sensor</string>
+    <string name="pref_player_orientation_video">Vídeo</string>
+    <string name="pref_player_precise_seeking_summary">Buscar posições exatas em vez de quadros-chave (lento)</string>
+    <string name="pref_player_precise_seeking_title">Busca precisa</string>
+    <string name="pref_player_remember_brightness">Lembrar o brilho da tela</string>
+    <string name="pref_player_save_position_on_quit">Salvar posição ao sair</string>
+    <string name="pref_player_seeking_title">Busca</string>
+    <string name="pref_player_show_seekbar_when_seeking">Mostrar barra de progresso ao buscar</string>
+    <string name="pref_player_summary">Orientação, gestos e controles</string>
+    <string name="pref_preferences">Preferências</string>
+    <string name="pref_preferred_languages">Idiomas preferidos</string>
+    <string name="pref_subtitles">Legendas</string>
+    <string name="pref_subtitles_fonts_dir">Diretório de fontes</string>
+    <string name="pref_subtitles_preferred_language">Idioma(s) da legenda a ser selecionado por padrão em vídeos com múltiplas legendas; códigos de duas ou três letras para idiomas funcionam. Vários valores podem ser separados por vírgula.</string>
+    <string name="pref_subtitles_summary">Idiomas preferidos, fontes</string>
+    <string msgid="6685851473431805375" name="preference_copied">"\"<ns1:g id="SUMMARY">%1$s</ns1:g>\" copiado para a área de transferência."</string>
+    <string msgid="5941395253238309765" name="range_end">"Fim do intervalo"</string>
+    <string msgid="7097486360902471446" name="range_start">"Início do intervalo"</string>
+    <string msgid="6264217191555673260" name="search_menu_title">"Pesquisar"</string>
+    <string name="searchview_clear_text_content_description">Limpar texto</string>
+    <string name="searchview_navigation_content_description">Voltar</string>
+    <string msgid="6043586758067023" name="selected">"Selecionado"</string>
+    <string name="side_sheet_accessibility_pane_title">Página lateral</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"Alerta"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Vazio"</string>
+    <string msgid="5834637030682409883" name="state_off">"Desativado"</string>
+    <string msgid="1490883874751719580" name="state_on">"Ativado"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="9167775378838880170" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>, <ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
+    <string msgid="2561197295334830845" name="switch_role">"Chave"</string>
+    <string msgid="1672349317127674378" name="tab">"Guia"</string>
+    <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g>%%"</string>
+    <string name="timer_picker_enter_timer">Inserir tempo</string>
+    <string name="timer_picker_pick_time">Selecionar tempo</string>
+    <string name="toast_sleep_timer_ended">Temporizador de sono terminado</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"dica"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"mostrar dica"</string>
+    <string msgid="3140233346420563315" name="v7_preference_off">"DESATIVADO"</string>
+    <string msgid="89551595707643515" name="v7_preference_on">"ATIVADO"</string>
+    <string name="value_percentage_float" translatable="false">%.2f\%%</string>
+    <string name="value_percentage_int" translatable="false">%d%%</string>
+    <string name="volume_slider_percentage_negative_boost" translatable="false">%d%% - %d</string>
+    <string name="volume_slider_percentage_other" translatable="false">%d%% (%d)</string>
+    <string name="volume_slider_percentage_positive_boost" translatable="false">%d%% + %d</string>
+    <string name="volume_slider_steps_negative_boost" translatable="false">%d - %d</string>
+    <string name="volume_slider_steps_other" translatable="false">%d (%d)</string>
+    <string name="volume_slider_steps_positive_boost" translatable="false">%d + %d</string>
+</resources>

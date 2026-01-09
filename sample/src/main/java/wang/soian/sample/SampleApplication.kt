@@ -2,10 +2,9 @@ package wang.soian.sample
 
 import android.app.Application
 import live.mehiz.mpvkt.di.AppModule
-import live.mehiz.mpvkt.di.DatabaseModule
 import live.mehiz.mpvkt.di.FileManagerModule
+import live.mehiz.mpvkt.di.MpvKtDatabaseModule
 import live.mehiz.mpvkt.di.PreferencesModule
-import live.mehiz.mpvkt.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -25,10 +24,9 @@ class SampleApplication : Application(), KoinStartup {
     androidContext(this@SampleApplication)
     modules(
       AppModule,
+      MpvKtDatabaseModule,
       PreferencesModule,
-      DatabaseModule,
       FileManagerModule,
-      ViewModelModule,
     )
   }
 }

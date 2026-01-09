@@ -37,7 +37,7 @@ androidx-documentfile = { group = "androidx.documentfile", name = "documentfile"
 androidx-tv-foundation = "androidx.tv:tv-foundation:1.0.0-alpha12"
 androidx-tv-material3 = "androidx.tv:tv-material:1.1.0-alpha01"
 
-mpv-lib = "io.github.wohal:mpv-android-lib:0.2.2"
+mpv-lib = "io.github.wohal:mpv-android-lib:0.2.3"
 seeker = "com.github.abdallahmehiz:seeker:2.0.1"
 
 timber = "com.jakewharton.timber:timber:5.0.1"
@@ -76,6 +76,8 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
+preferences = "io.github.wohal:quando-preference:0.0.2"
+
 [bundles]
 koin = ["koin-core", "koin-android", "koin-compose", "koin-viewmodel", "koin-startup"]
 about-libs = ["about-libs-core", "about-libs-ui-m3"]
@@ -91,3 +93,4 @@ room = { id = "androidx.room", version.ref = "room" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 about-libraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "about-libs" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version = "0.35.0" }

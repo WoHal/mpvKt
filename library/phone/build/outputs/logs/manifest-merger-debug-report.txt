@@ -1,0 +1,26 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:2:1-9:12
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:2:1-9:12
+	package
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:3:5-8:19
+service#io.github.wang.mpvplayer.MediaPlaybackService
+ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:4:9-7:61
+	android:exported
+		ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:6:13-37
+	android:foregroundServiceType
+		ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:7:13-58
+	android:name
+		ADDED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:5:13-49
+uses-sdk
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml
+INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml

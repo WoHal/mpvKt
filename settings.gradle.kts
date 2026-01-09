@@ -17,14 +17,11 @@ dependencyResolutionManagement {
     google()
     maven(url = "https://www.jitpack.io")
     mavenCentral()
-
-    flatDir {
-      dirs("aars")
-    }
   }
 }
 
 rootProject.name = "mpvKt"
-include(":library")
-//include(":AutoMaterial3")
+include(":library:core")
+include(":library:phone")
+include(":library:tv")
 include(":sample")

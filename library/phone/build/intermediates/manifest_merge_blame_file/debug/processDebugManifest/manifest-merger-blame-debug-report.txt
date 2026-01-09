@@ -1,0 +1,19 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.github.wang.mpvplayer" >
+4
+5    <uses-sdk android:minSdkVersion="21" />
+6
+7    <application>
+7-->/Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:3:5-8:19
+8        <service
+8-->/Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:4:9-7:61
+9            android:name="io.github.wang.mpvplayer.MediaPlaybackService"
+9-->/Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:5:13-49
+10            android:exported="false"
+10-->/Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:6:13-37
+11            android:foregroundServiceType="mediaPlayback" />
+11-->/Volumes/MacExternal/home/socian2/www/WoHal/mpvKt/library/phone/src/main/AndroidManifest.xml:7:13-58
+12    </application>
+13
+14</manifest>
