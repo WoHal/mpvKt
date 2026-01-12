@@ -13,7 +13,7 @@ plugins {
   alias(libs.plugins.maven.publish)
 }
 
-val libVersion = "0.0.1"
+val libVersion = "0.0.2"
 
 android {
   namespace = "io.github.wohal.mpvplayer"

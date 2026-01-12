@@ -14,7 +14,7 @@ plugins {
   alias(libs.plugins.maven.publish)
 }
 
-val libVersion = "0.0.1"
+val libVersion = "0.0.2"
 
 android {
   namespace = "live.mehiz.mpvkt"
@@ -75,7 +75,7 @@ android {
 kotlin {
   compilerOptions {
     jvmTarget.set(JvmTarget.JVM_17)
-    freeCompilerArgs.addAll("-Xwhen-guards", "-Xcontext-parameters")
+    freeCompilerArgs.addAll("-Xwhen-guards", "-Xcontext-parameters", "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
   }
 }
 

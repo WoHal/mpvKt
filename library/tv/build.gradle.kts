@@ -13,7 +13,7 @@ plugins {
   alias(libs.plugins.maven.publish)
 }
 
-val libVersion = "0.0.1"
+val libVersion = "0.0.2"
 
 android {
   namespace = "io.github.wohal.mpvplayer"
@@ -80,7 +80,7 @@ kotlin {
 }
 
 dependencies {
-  implementation(project(":library:core"))
+  debugImplementation(project(":library:core"))
 
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))

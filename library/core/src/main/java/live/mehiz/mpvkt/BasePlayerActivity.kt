@@ -17,33 +17,35 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.database.entities.PlaybackStateEntity
+import live.mehiz.mpvkt.domain.playbackstate.repository.PlaybackStateRepository
 import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.player.MPVView
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.PlayerViewModelProviderFactory
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 @Suppress("TooManyFunctions")
 abstract class BasePlayerActivity : ComponentActivity(),
   BasePlayerEvent, MPVLib.EventObserver, PlayerScreenObserver {
-  abstract var currentPlayerItem: MPVPlayerItem
   var currentVideoPlaybackState: PlaybackStateEntity? = null
 
+  val playbackStateRepository: PlaybackStateRepository by inject()
+
   val playerViewModel: PlayerViewModel by viewModels { PlayerViewModelProviderFactory(this) }
-  lateinit var player: MPVView
   val windowInsetsController by lazy { playerViewModel.playerHelper.windowInsetsController }
 
   // a bunch of observers
   override fun eventProperty(property: String, value: Long) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
   }
 
   override fun eventProperty(property: String) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
   }
 
   override fun eventProperty(property: String, value: Boolean) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
     runOnUiThread {
       when (property) {
         "pause" -> {
@@ -54,50 +56,47 @@ abstract class BasePlayerActivity : ComponentActivity(),
           }
         }
         "eof-reached" if value -> {
-          if (playerViewModel.playerPreferences.closeAfterReachingEndOfVideo.get()) {
-            finishAndRemoveTask()
-          } else {
-            onPlayEnd()
-          }
+          onPlayReachedEnd()
         }
       }
     }
   }
 
   override fun eventProperty(property: String, value: String) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
     // Custom Buttons Event
   }
 
   override fun eventProperty(property: String, value: MPVNode) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
   }
 
   @SuppressLint("NewApi")
   override fun eventProperty(property: String, value: Double) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
   }
 
   override fun event(eventId: Int, data: MPVNode) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
     when (eventId) {
       MPVLib.MpvEvent.MPV_EVENT_FILE_LOADED -> {
-        setMpvExtras(currentPlayerItem)
+        playerViewModel.setMpvExtras(playerViewModel.currentPlayItem)
 
-        MPVLib.setPropertyString("media-title", currentPlayerItem.mediaTitle)
+        MPVLib.setPropertyString("media-title", playerViewModel.currentPlayItem.mediaTitle)
         lifecycleScope.launch(Dispatchers.IO) {
-          loadVideoPlaybackState(currentPlayerItem.mediaId)
+          loadVideoPlaybackState(playerViewModel.currentPlayItem.mediaId)
         }
         playerViewModel.changeVideoAspect(playerViewModel.playerPreferences.videoAspect.get())
       }
 
-      MPVLib.MpvEvent.MPV_EVENT_PLAYBACK_RESTART -> player.isExiting = false
+      MPVLib.MpvEvent.MPV_EVENT_PLAYBACK_RESTART -> playerViewModel.player.isExiting = false
     }
   }
 
   override fun onPlayerScreenCreated() {
     playerViewModel.playerHelper.setupAudio()
     playerViewModel.playerHelper.setupMediaSession()
+    playerViewModel.player.isExiting = false
   }
 
   override fun onPlayerScreenPaused() {
@@ -124,66 +123,29 @@ abstract class BasePlayerActivity : ComponentActivity(),
 
   override fun onPlayerScreenDestroy() {
     Timber.d("Exiting")
-    playerViewModel.playerHelper.audioFocusRequest?.let {
-      AudioManagerCompat.abandonAudioFocusRequest(playerViewModel.playerHelper.audioManager, it)
-    }
-    playerViewModel.playerHelper.audioFocusRequest = null
     playerViewModel.playerHelper.releaseAudio()
     playerViewModel.playerHelper.releaseMediaSession()
 
-    player.isExiting = true
+    playerViewModel.player.isExiting = true
     if (isFinishing) {
       MPVLib.command("stop")
     }
-    MPVLib.destroy()
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    player = playerViewModel.player
-
-    playerViewModel.playerHelper.setupMPV()
-  }
-
-  override fun onPlayEnd() {
-    playerViewModel.seekTo(0)
-  }
-
-  fun setRequestHeaders(playerItem: MPVPlayerItem) {
-    if (playerItem.userAgent.isNotEmpty()) {
-      MPVLib.setPropertyString("user-agent", playerItem.userAgent)
-    }
-
-    if (playerItem.headers.isNotEmpty()) {
-      val headersString = playerItem.headers.map {
-        "${it.key}: ${it.value.replace(",", "\\,")}"
-      }.joinToString(",")
-      MPVLib.setPropertyString("http-header-fields", headersString)
+  override fun onPlayReachedEnd() {
+    if (playerViewModel.canPlayNext) {
+      playerViewModel.playNext()
+    } else if (playerViewModel.playerPreferences.closeAfterReachingEndOfVideo.get()) {
+      onBackPressedDispatcher.onBackPressed()
     }
   }
 
-  fun setMpvExtras(playerItem: MPVPlayerItem) {
-    MPVLib.setPropertyString("force-media-title", playerItem.mediaTitle)
-    MPVLib.setPropertyInt("time-pos", playerItem.position / 1000)
-
-    playerItem.audioFiles.forEach { url ->
-      playerViewModel.addAudio(url.toUri())
-    }
-
-    playerItem.subtitles.forEach { subtitle ->
-      Timber.v("Adding subtitles from intent extras: ${subtitle.url}")
-      MPVLib.command("sub-add", subtitle.url, if (subtitle.enable) "select" else "auto")
-    }
-  }
-
-  abstract fun savePlaybackState(state: PlaybackStateEntity)
   fun saveVideoPlaybackState() {
     lifecycleScope.launch(Dispatchers.IO) {
       val oldState = currentVideoPlaybackState
       val newState = PlaybackStateEntity(
-        mediaId = oldState?.mediaId ?: currentPlayerItem.mediaId,
-        mediaTitle = oldState?.mediaTitle ?: currentPlayerItem.mediaTitle,
+        mediaId = oldState?.mediaId ?: playerViewModel.currentPlayItem.mediaId,
+        mediaTitle = oldState?.mediaTitle ?: playerViewModel.currentPlayItem.mediaTitle,
         lastPosition = if (playerViewModel.playerPreferences.savePositionOnQuit.get()) {
           val pos = playerViewModel.pos ?: 0
           val duration = playerViewModel.duration ?: 0
@@ -192,23 +154,22 @@ abstract class BasePlayerActivity : ComponentActivity(),
           oldState?.lastPosition ?: 0
         },
         playbackSpeed = MPVLib.getPropertyDouble("speed")!!,
-        sid = player.sid,
+        sid = playerViewModel.player.sid,
         subDelay = (MPVLib.getPropertyDouble("sub-delay")!! * 1000).toInt(),
         subSpeed = MPVLib.getPropertyDouble("sub-speed")!!,
-        secondarySid = player.secondarySid,
+        secondarySid = playerViewModel.player.secondarySid,
         secondarySubDelay = (MPVLib.getPropertyDouble("secondary-sub-delay")!! * 1000).toInt(),
-        aid = player.aid,
+        aid = playerViewModel.player.aid,
         audioDelay = (MPVLib.getPropertyDouble("audio-delay")!! * 1000).toInt(),
       )
-      savePlaybackState(newState)
+      playbackStateRepository.upsert(newState)
       currentVideoPlaybackState = newState
     }
   }
 
-  abstract suspend fun loadVideoPlaybackStateById(mediaId: String): PlaybackStateEntity?
   suspend fun loadVideoPlaybackState(mediaId: String) {
     if (mediaId.isBlank()) return
-    val state = loadVideoPlaybackStateById(mediaId)
+    val state = playbackStateRepository.getVideoDataById(mediaId)
     val getDelay: (Int, Int?) -> Double = { preferenceDelay, stateDelay ->
       (stateDelay ?: preferenceDelay) / 1000.0
     }
@@ -217,9 +178,9 @@ abstract class BasePlayerActivity : ComponentActivity(),
     val audioDelay = getDelay(playerViewModel.audioPreferences.defaultAudioDelay.get(), state?.audioDelay)
     Timber.d("loaded playback state: $state")
     state?.let {
-      player.sid = it.sid
-      player.secondarySid = it.secondarySid
-      player.aid = it.aid
+      playerViewModel.player.sid = it.sid
+      playerViewModel.player.secondarySid = it.secondarySid
+      playerViewModel.player.aid = it.aid
       MPVLib.setPropertyDouble("sub-delay", subDelay)
       MPVLib.setPropertyDouble("secondary-sub-delay", secondarySubDelay)
       MPVLib.setPropertyDouble("speed", it.playbackSpeed)
@@ -235,7 +196,7 @@ abstract class BasePlayerActivity : ComponentActivity(),
 
 
   override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-    if (player.onKey(event!!)) return true
+    if (playerViewModel.player.onKey(event!!)) return true
     return super.onKeyUp(keyCode, event)
   }
 }

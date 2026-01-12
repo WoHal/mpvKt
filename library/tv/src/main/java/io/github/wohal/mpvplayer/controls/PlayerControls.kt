@@ -237,7 +237,7 @@ fun PlayerControls(
           if (currentPlayerUpdate is PlayerUpdates.MultipleSpeed || currentPlayerUpdate is PlayerUpdates.None) {
             return@LaunchedEffect
           }
-          delay(2000)
+          delay(3000)
           viewModel.playerUpdate.update { PlayerUpdates.None }
         }
 
@@ -260,7 +260,7 @@ fun PlayerControls(
         }
 
         // Top
-        val mediaTitle by MPVLib.propString["media-title"].collectAsState()
+        val mediaTitle = viewModel.currentPlayItem.mediaTitle
         AnimatedVisibility(
           controlsShown,
           enter = if (!reduceMotion) {
@@ -411,20 +411,20 @@ fun PlayerControls(
               chapters = chapters,
             )
 
-            BottomPlayerControls(
-              modifier = Modifier.padding(start = 50.dp),
-              // subtitle
-              onSelectSubtitle = {},
-              // audio
-//              audioTracks = audioTracks,
-//              onSelectAudio = { id ->
-//                if (id < 0) {
-//                  MPVLib.setPropertyBoolean("aid", false)
-//                } else if (MPVLib.getPropertyInt("aid") != id) {
-//                  MPVLib.setPropertyInt("aid", id)
-//                }
-//              },
-            )
+//            BottomPlayerControls(
+//              modifier = Modifier.padding(start = 50.dp),
+//              // subtitle
+//              onSelectSubtitle = {},
+//              // audio
+////              audioTracks = audioTracks,
+////              onSelectAudio = { id ->
+////                if (id < 0) {
+////                  MPVLib.setPropertyBoolean("aid", false)
+////                } else if (MPVLib.getPropertyInt("aid") != id) {
+////                  MPVLib.setPropertyInt("aid", id)
+////                }
+////              },
+//            )
           }
         }
 
@@ -444,16 +444,9 @@ fun PlayerControls(
         ) {
           PlayerSheetControls(
             modifier = Modifier.fillMaxSize(),
-            // decoder
-//            decoder = decoder,
-//            onUpdateDecoder = { MPVLib.setPropertyString("hwdec", it.value) },
-//            // speed
-//            playbackSpeed = playbackSpeed ?: playerPreferences.defaultSpeed.get(),
-//            playbackSpeedPresets = speedPresets,
-//            onPlaybackSpeedChange = { MPVLib.setPropertyFloat("speed", it.toFixed(2)) },
             // subtitle
             subtitles = subtitles,
-            onSelectSubtitle = viewModel::selectSub,
+            onSelectSubtitle = { id -> viewModel.selectSub(id) },
             // audio
             audioTracks = audioTracks,
             onSelectAudio = { id ->

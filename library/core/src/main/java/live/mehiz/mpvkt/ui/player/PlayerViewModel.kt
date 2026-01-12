@@ -7,6 +7,7 @@ import android.media.AudioManager
 import android.net.Uri
 import android.provider.Settings
 import android.util.DisplayMetrics
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -21,23 +22,29 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.RENDEZVOUS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import live.mehiz.mpvkt.PlayerActivityHelper
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.database.entities.CustomButtonEntity
+import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.preferences.AdvancedPreferences
 import live.mehiz.mpvkt.preferences.AudioPreferences
 import live.mehiz.mpvkt.preferences.GesturePreferences
 import live.mehiz.mpvkt.preferences.PlayerPreferences
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
 import org.koin.java.KoinJavaComponent.inject
+import timber.log.Timber
+import java.lang.Exception
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -116,6 +123,75 @@ class PlayerViewModel(
   private var timerJob: Job? = null
   private val _remainingTime = MutableStateFlow(0)
   val remainingTime = _remainingTime.asStateFlow()
+
+  var playItems: List<MPVPlayerItem> = emptyList()
+  var currentPlayItemIndex = 0
+  val currentPlayItem: MPVPlayerItem
+    get() = playItems[currentPlayItemIndex]
+
+  val canPlayNext: Boolean
+    get() = currentPlayItemIndex + 1 < playItems.size
+
+  private var _playChannel = Channel<String>(RENDEZVOUS)
+  var playChannelFlow = _playChannel.receiveAsFlow()
+  fun play(items: List<MPVPlayerItem>, index: Int = 0) {
+    playItems = items
+    currentPlayItemIndex = index
+
+    play(currentPlayItem)
+  }
+  fun play(item: MPVPlayerItem) {
+    setRequestHeaders(item)
+    pause()
+    seekTo(0)
+    runCatching {
+      (player.parent as ViewGroup).removeView(player)
+    }
+
+    Timber.d("current play item: $currentPlayItem, current index: $currentPlayItemIndex, size: ${playItems.size}")
+    player.playFile(item.uri)
+
+    _playChannel.trySend(item.uri)
+
+    unpause()
+    showControls()
+  }
+  fun playNext() {
+    Timber.d("play next")
+    if (canPlayNext) {
+      currentPlayItemIndex++
+
+      play(currentPlayItem)
+    }
+  }
+
+
+  fun setRequestHeaders(playerItem: MPVPlayerItem) {
+    if (playerItem.userAgent.isNotEmpty()) {
+      MPVLib.setPropertyString("user-agent", playerItem.userAgent)
+    }
+
+    if (playerItem.headers.isNotEmpty()) {
+      val headersString = playerItem.headers.map {
+        "${it.key}: ${it.value.replace(",", "\\,")}"
+      }.joinToString(",")
+      MPVLib.setPropertyString("http-header-fields", headersString)
+    }
+  }
+
+  fun setMpvExtras(playerItem: MPVPlayerItem) {
+    MPVLib.setPropertyString("force-media-title", playerItem.mediaTitle)
+    MPVLib.setPropertyInt("time-pos", playerItem.position / 1000)
+
+    playerItem.audioFiles.forEach { url ->
+      addAudio(url.toUri())
+    }
+
+    playerItem.subtitles.forEach { subtitle ->
+      Timber.v("Adding subtitles from intent extras: ${subtitle.url}")
+      MPVLib.command("sub-add", subtitle.url, if (subtitle.enable) "select" else "auto")
+    }
+  }
 
   fun startTimer(seconds: Int) {
     timerJob?.cancel()

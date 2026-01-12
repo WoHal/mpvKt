@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
 
 class MainActivity : VideoPlayerActivity() {
@@ -35,6 +36,20 @@ class MainActivity : VideoPlayerActivity() {
                 ) {
                   Button(
                     onClick = {
+                      playerViewModel.play(
+                        listOf(
+                          MPVPlayerItem(
+                            mediaId = "123",
+                            mediaTitle = "Video 123",
+                            uri = "https://www.w3schools.com/tags/movie.mp4"
+                          ),
+                          MPVPlayerItem(
+                            mediaId = "456",
+                            mediaTitle = "Video 456",
+                            uri = "https://api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&userId=17&ext=.mp4"
+                          )
+                        )
+                      )
                       mainNavController.navigate("video")
                     }
                   ) {

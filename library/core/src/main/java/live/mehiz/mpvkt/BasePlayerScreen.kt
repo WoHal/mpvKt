@@ -1,19 +1,25 @@
 package live.mehiz.mpvkt
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.Sheets
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
+import timber.log.Timber
 
 @Suppress("ViewModelForwarding")
 @Composable
@@ -45,8 +51,6 @@ fun BasePlayerScreen(
 
           Lifecycle.Event.ON_DESTROY -> {
             playerHelper.onPlayerScreenDestroy()
-            viewModel.sheetShown.update { Sheets.None }
-            viewModel.hideControls()
           }
 
           else -> {}
@@ -55,23 +59,27 @@ fun BasePlayerScreen(
     },
   )
 
+  val uniqueKey by viewModel.playChannelFlow.collectAsStateWithLifecycle("")
+
   MpvKtTheme {
     Box(
       modifier = modifier.fillMaxSize()
     ) {
-      AndroidView(
-        factory = {
-          // SurfaceView likely needs to be attached to the window before the visibility
-          // toggle can trigger the necessary surface recreation,
-          // using `post` to resolve it.
-          viewModel.player.apply {
-            post {
-              visibility = View.GONE
-              visibility = View.VISIBLE
+      key(uniqueKey) {
+        AndroidView(
+          factory = {
+            // SurfaceView likely needs to be attached to the window before the visibility
+            // toggle can trigger the necessary surface recreation,
+            // using `post` to resolve it.
+            viewModel.player.apply {
+              post {
+                visibility = View.GONE
+                visibility = View.VISIBLE
+              }
             }
-          }
-        }
-      )
+          },
+        )
+      }
       playerControlContent()
     }
   }

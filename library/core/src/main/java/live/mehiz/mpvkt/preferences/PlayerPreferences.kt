@@ -35,11 +35,11 @@ class PlayerPreferences(
   val displayVolumeAsPercentage = preferenceStore.getBoolean("display_volume_as_percentage", true)
   val swapVolumeAndBrightness = preferenceStore.getBoolean("display_volume_on_right")
   val showLoadingCircle = preferenceStore.getBoolean("show_loading_circle", true)
-  val savePositionOnQuit = preferenceStore.getBoolean("save_position", true)
+  val savePositionOnQuit = preferenceStore.getBoolean("save_position", false)
 
   val automaticallyEnterPip = preferenceStore.getBoolean("automatic_pip")
   val automaticBackgroundPlayback = preferenceStore.getBoolean("automatic_background_playback")
-  val closeAfterReachingEndOfVideo = preferenceStore.getBoolean("close_after_eof")
+  val closeAfterReachingEndOfVideo = preferenceStore.getBoolean("close_after_eof", false)
 
   val rememberBrightness = preferenceStore.getBoolean("remember_rightness")
   val defaultBrightness = preferenceStore.getFloat("default_brightness", -1f)

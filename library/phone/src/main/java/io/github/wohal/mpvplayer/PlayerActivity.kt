@@ -32,7 +32,6 @@ import io.github.wohal.mpvplayer.controls.PlayerControls
 import `is`.xyz.mpv.MPVLib
 import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.BasePlayerActivity
-import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.player.PIP_FF
 import live.mehiz.mpvkt.ui.player.PIP_FR
 import live.mehiz.mpvkt.ui.player.PIP_INTENTS_FILTER
@@ -80,7 +79,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
   @SuppressLint("NewApi")
   override fun eventProperty(property: String, value: Double) {
-    if (player.isExiting) return
+    if (playerViewModel.player.isExiting) return
     runOnUiThread {
       when (property) {
         "video-params/aspect" -> if (isPipSupported) createPipParams()
@@ -125,11 +124,18 @@ abstract class PlayerActivity : BasePlayerActivity() {
       noisyReceiver.initialized = false
     }
 
-    player.isExiting = true
+    playerViewModel.player.isExiting = true
     if (isFinishing) {
       MPVLib.command("stop")
     }
-    MPVLib.removeObserver(this)
+  }
+
+  override fun onPlayReachedEnd() {
+    super.onPlayReachedEnd()
+
+    if (!playerViewModel.canPlayNext && playerViewModel.playerPreferences.closeAfterReachingEndOfVideo.get()) {
+      finishAndRemoveTask()
+    }
   }
 
   val serviceConnection = object : ServiceConnection {
@@ -141,7 +147,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
       val artist = MPVLib.getPropertyString("metadata/artist") ?: ""
       Timber.d("on service connected")
       mediaPlaybackService?.setMediaInfo(
-        title = currentPlayerItem.mediaTitle,
+        title = playerViewModel.currentPlayItem.mediaTitle,
         artist = artist,
         thumbnail = MPVLib.grabThumbnail(1080)
       )
@@ -153,11 +159,6 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
   }
 
-  fun play(playerItem: MPVPlayerItem) {
-    currentPlayerItem = playerItem
-
-    player.playFile(currentPlayerItem.uri)
-  }
   private fun startBackgroundPlayback() {
     val intent = Intent(this, MediaPlaybackService::class.java)
     startService(intent)
@@ -254,11 +255,15 @@ abstract class PlayerActivity : BasePlayerActivity() {
     }
   }
 
+  override fun onDestroy() {
+    super.onDestroy()
+    playerViewModel.player.destroy()
+  }
   @RequiresApi(Build.VERSION_CODES.O)
   fun createPipParams(): PictureInPictureParams {
     val builder = PictureInPictureParams.Builder()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      builder.setTitle(currentPlayerItem.mediaTitle)
+      builder.setTitle(playerViewModel.currentPlayItem.mediaTitle)
     }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
       val autoEnter = playerViewModel.playerPreferences.automaticallyEnterPip.get()
@@ -269,7 +274,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
     builder.setSourceRectHint(pipRect)
     MPVLib.getPropertyInt("video-params/h")?.let {
       val height = it
-      val width = it * player.getVideoOutAspect()!!
+      val width = it * playerViewModel.player.getVideoOutAspect()!!
       val rational = Rational(height, width.toInt()).toFloat()
       if (rational in 0.42..2.38) builder.setAspectRatio(Rational(width.toInt(), height))
     }
@@ -319,7 +324,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
   private fun setOrientation() {
     requestedOrientation = when (playerViewModel.playerPreferences.orientation.get()) {
       PlayerOrientation.Free -> ActivityInfo.SCREEN_ORIENTATION_SENSOR
-      PlayerOrientation.Video -> if ((player.getVideoOutAspect() ?: 0.0) > 1.0) {
+      PlayerOrientation.Video -> if ((playerViewModel.player.getVideoOutAspect() ?: 0.0) > 1.0) {
         ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
       } else {
         ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
@@ -353,7 +358,7 @@ abstract class PlayerActivity : BasePlayerActivity() {
 
       // other keys should be bound by the user in input.conf ig
       else -> {
-        event?.let { player.onKey(it) }
+        event?.let { playerViewModel.player.onKey(it) }
         super.onKeyDown(keyCode, event)
       }
     }
