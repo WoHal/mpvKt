@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.github.k1rakishou.fsaf.FileManager
 import com.yubyf.truetypeparser.TTFFile
+import io.github.wohal.quando.preference.deleteAndGet
 import `is`.xyz.mpv.MPVLib
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Dispatchers
@@ -51,7 +52,6 @@ import kotlinx.coroutines.withContext
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.SubtitleJustification
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
-import io.github.wohal.quando.preference.deleteAndGet
 import live.mehiz.mpvkt.presentation.components.ExpandableCard
 import live.mehiz.mpvkt.presentation.components.ExposedTextDropDownMenu
 import live.mehiz.mpvkt.presentation.components.SliderItem

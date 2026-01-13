@@ -61,7 +61,7 @@ class MPVView(
   override fun initOptions() {
     setVo(if (decoderPreferences.gpuNext.get()) "gpu-next" else "gpu")
     MPVLib.setOptionString("profile", "fast")
-    MPVLib.setOptionString("hwdec", if (decoderPreferences.tryHWDecoding.get()) "no" else "no")
+    MPVLib.setOptionString("hwdec", if (decoderPreferences.tryHWDecoding.get()) "auto" else "no")
 
     if (decoderPreferences.useYUV420P.get()) {
       MPVLib.setOptionString("vf", "format=yuv420p")
@@ -71,8 +71,8 @@ class MPVView(
     MPVLib.setPropertyBoolean("keep-open", true)
     MPVLib.setPropertyBoolean("input-default-bindings", true)
 
-    MPVLib.setOptionString("tls-verify", "yes")
-    MPVLib.setOptionString("tls-ca-file", "${context.filesDir.path}/cacert.pem")
+    MPVLib.setOptionString("tls-verify", "no")
+//    MPVLib.setOptionString("tls-ca-file", "${context.filesDir.path}/cacert.pem")
 
     // Limit demuxer cache since the defaults are too high for mobile devices
     val cacheMegs = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) 64 else 32

@@ -1,9 +1,9 @@
 package live.mehiz.mpvkt.preferences
 
 import androidx.annotation.StringRes
-import live.mehiz.mpvkt.R
 import io.github.wohal.quando.preference.PreferenceStore
 import io.github.wohal.quando.preference.getEnum
+import live.mehiz.mpvkt.R
 
 class AudioPreferences(preferenceStore: PreferenceStore) {
   val preferredLanguages = preferenceStore.getString("audio_preferred_languages")

@@ -17,10 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import io.github.wohal.quando.preference.collectAsState
 import kotlinx.serialization.Serializable
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.DecoderPreferences
-import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.presentation.Screen
 import live.mehiz.mpvkt.ui.player.Debanding
 import live.mehiz.mpvkt.ui.utils.LocalBackStack

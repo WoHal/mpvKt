@@ -1,5 +1,7 @@
 package live.mehiz.mpvkt.di
 
+import io.github.wohal.quando.preference.AndroidPreferenceStore
+import io.github.wohal.quando.preference.PreferenceStore
 import live.mehiz.mpvkt.preferences.AdvancedPreferences
 import live.mehiz.mpvkt.preferences.AppearancePreferences
 import live.mehiz.mpvkt.preferences.AudioPreferences
@@ -7,8 +9,6 @@ import live.mehiz.mpvkt.preferences.DecoderPreferences
 import live.mehiz.mpvkt.preferences.GesturePreferences
 import live.mehiz.mpvkt.preferences.PlayerPreferences
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
-import io.github.wohal.quando.preference.AndroidPreferenceStore
-import io.github.wohal.quando.preference.PreferenceStore
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind

@@ -23,10 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import io.github.wohal.quando.preference.deleteAndGet
 import `is`.xyz.mpv.MPVLib
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
-import io.github.wohal.quando.preference.deleteAndGet
 import live.mehiz.mpvkt.presentation.components.ExpandableCard
 import live.mehiz.mpvkt.presentation.components.SliderItem
 import live.mehiz.mpvkt.ui.player.controls.CARDS_MAX_WIDTH

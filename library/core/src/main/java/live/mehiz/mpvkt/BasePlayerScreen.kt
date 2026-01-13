@@ -1,11 +1,9 @@
 package live.mehiz.mpvkt
 
 import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
@@ -15,11 +13,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
-import live.mehiz.mpvkt.ui.player.Sheets
 import live.mehiz.mpvkt.ui.theme.MpvKtTheme
-import timber.log.Timber
 
 @Suppress("ViewModelForwarding")
 @Composable

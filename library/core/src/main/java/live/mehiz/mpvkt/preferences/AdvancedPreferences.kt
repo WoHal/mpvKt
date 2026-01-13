@@ -1,7 +1,7 @@
 package live.mehiz.mpvkt.preferences
 
-import live.mehiz.mpvkt.BuildConfig
 import io.github.wohal.quando.preference.PreferenceStore
+import live.mehiz.mpvkt.BuildConfig
 
 class AdvancedPreferences(preferenceStore: PreferenceStore) {
   val mpvConfStorageUri = preferenceStore.getString("mpv_conf_storage_location_uri")

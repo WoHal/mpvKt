@@ -52,6 +52,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import io.github.wohal.quando.preference.collectAsState
 import `is`.xyz.mpv.MPVLib
 import kotlinx.collections.immutable.ImmutableList
 import live.mehiz.mpvkt.R
@@ -60,7 +61,6 @@ import live.mehiz.mpvkt.preferences.AdvancedPreferences
 import live.mehiz.mpvkt.preferences.AudioChannels
 import live.mehiz.mpvkt.preferences.AudioPreferences
 import live.mehiz.mpvkt.preferences.PlayerPreferences
-import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.presentation.components.PlayerSheet
 import live.mehiz.mpvkt.ui.player.execute
 import live.mehiz.mpvkt.ui.player.executeLongClick

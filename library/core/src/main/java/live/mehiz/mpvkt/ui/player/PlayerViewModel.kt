@@ -44,7 +44,6 @@ import live.mehiz.mpvkt.preferences.PlayerPreferences
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
 import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
-import java.lang.Exception
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 

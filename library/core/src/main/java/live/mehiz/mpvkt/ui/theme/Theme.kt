@@ -15,9 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.AppearancePreferences
-import io.github.wohal.quando.preference.collectAsState
 import org.koin.compose.koinInject
 
 private val lightScheme = lightColorScheme(

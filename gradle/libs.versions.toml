@@ -79,6 +79,8 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 
 preferences = "io.github.wohal:quando-preference:0.0.2"
 
+mpvplayer-core = "io.github.wohal:mpvplayer-core:0.0.2"
+
 [bundles]
 koin = ["koin-core", "koin-android", "koin-compose", "koin-viewmodel", "koin-startup"]
 about-libs = ["about-libs-core", "about-libs-ui-m3"]

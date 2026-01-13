@@ -3,14 +3,11 @@ package live.mehiz.mpvkt
 import android.annotation.SuppressLint
 import android.media.AudioManager
 import android.os.Build
-import android.os.Bundle
 import android.view.KeyEvent
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
-import androidx.media.AudioManagerCompat
 import `is`.xyz.mpv.MPVLib
 import `is`.xyz.mpv.MPVNode
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import live.mehiz.mpvkt.database.entities.PlaybackStateEntity
 import live.mehiz.mpvkt.domain.playbackstate.repository.PlaybackStateRepository
-import live.mehiz.mpvkt.model.MPVPlayerItem
-import live.mehiz.mpvkt.ui.player.MPVView
 import live.mehiz.mpvkt.ui.player.PlayerViewModel
 import live.mehiz.mpvkt.ui.player.PlayerViewModelProviderFactory
 import org.koin.android.ext.android.inject

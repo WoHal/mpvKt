@@ -1,4 +1,4 @@
-name: Release tv
+name: Release core
 
 permissions:
   contents: write

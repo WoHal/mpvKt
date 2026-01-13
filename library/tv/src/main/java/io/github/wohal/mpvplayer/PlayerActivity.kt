@@ -1,24 +1,12 @@
 package io.github.wohal.mpvplayer
 
-import android.os.Bundle
 import android.view.KeyEvent
-import android.view.View
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import io.github.wohal.mpvplayer.controls.PlayerControls
 import `is`.xyz.mpv.MPVLib
 import live.mehiz.mpvkt.BasePlayerActivity
 import live.mehiz.mpvkt.BasePlayerScreen
-import live.mehiz.mpvkt.model.MPVPlayerItem
 import live.mehiz.mpvkt.ui.player.Sheets
-import timber.log.Timber
 
 abstract class PlayerActivity : BasePlayerActivity() {
   override fun onPlayerScreenCreated() {

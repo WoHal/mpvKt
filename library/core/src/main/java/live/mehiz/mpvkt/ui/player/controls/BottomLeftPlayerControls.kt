@@ -46,15 +46,17 @@ fun BottomLeftPlayerControls(
       onClick = { onPlaybackSpeedChange(if (playbackSpeed >= 2) 0.25f else playbackSpeed + 0.25f) },
       onLongClick = { onOpenSheet(Sheets.PlaybackSpeed) },
     )
-    AnimatedVisibility(
-      showChapterIndicator && currentChapter != null,
-      enter = fadeIn(),
-      exit = fadeOut(),
-    ) {
-      CurrentChapter(
-        chapter = currentChapter!!,
-        onClick = { onOpenSheet(Sheets.Chapters) }
-      )
-    }
+//    AnimatedVisibility(
+//      showChapterIndicator && currentChapter != null,
+//      enter = fadeIn(),
+//      exit = fadeOut(),
+//    ) {
+//      if (currentChapter != null) {
+//        CurrentChapter(
+//          chapter = currentChapter,
+//          onClick = { onOpenSheet(Sheets.Chapters) }
+//        )
+//      }
+//    }
   }
 }

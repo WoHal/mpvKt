@@ -78,7 +78,9 @@ kotlin {
 }
 
 dependencies {
-  implementation(project(":library:core"))
+  debugImplementation(project(":library:core"))
+  releaseImplementation(libs.mpvplayer.core)
+
   implementation(libs.androidx.activity.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.androidx.ui)

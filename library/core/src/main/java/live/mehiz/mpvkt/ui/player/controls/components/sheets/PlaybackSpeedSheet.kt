@@ -26,10 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import io.github.wohal.quando.preference.collectAsState
 import `is`.xyz.mpv.MPVLib
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.AudioPreferences
-import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.presentation.components.PlayerSheet
 import live.mehiz.mpvkt.presentation.components.SliderItem
 import live.mehiz.mpvkt.ui.theme.spacing

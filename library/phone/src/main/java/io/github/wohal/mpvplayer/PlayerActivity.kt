@@ -22,6 +22,7 @@ import android.view.WindowManager
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -32,6 +33,7 @@ import io.github.wohal.mpvplayer.controls.PlayerControls
 import `is`.xyz.mpv.MPVLib
 import kotlinx.coroutines.flow.update
 import live.mehiz.mpvkt.BasePlayerActivity
+import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.ui.player.PIP_FF
 import live.mehiz.mpvkt.ui.player.PIP_FR
 import live.mehiz.mpvkt.ui.player.PIP_INTENTS_FILTER
@@ -39,7 +41,6 @@ import live.mehiz.mpvkt.ui.player.PIP_INTENT_ACTION
 import live.mehiz.mpvkt.ui.player.PIP_PAUSE
 import live.mehiz.mpvkt.ui.player.PIP_PLAY
 import live.mehiz.mpvkt.ui.player.Panels
-import live.mehiz.mpvkt.BasePlayerScreen
 import live.mehiz.mpvkt.ui.player.PlayerOrientation
 import live.mehiz.mpvkt.ui.player.Sheets
 import live.mehiz.mpvkt.ui.player.createPipActions
@@ -123,19 +124,9 @@ abstract class PlayerActivity : BasePlayerActivity() {
       unregisterReceiver(noisyReceiver)
       noisyReceiver.initialized = false
     }
+    MPVLib.removeObserver(this)
 
-    playerViewModel.player.isExiting = true
-    if (isFinishing) {
-      MPVLib.command("stop")
-    }
-  }
-
-  override fun onPlayReachedEnd() {
-    super.onPlayReachedEnd()
-
-    if (!playerViewModel.canPlayNext && playerViewModel.playerPreferences.closeAfterReachingEndOfVideo.get()) {
-      finishAndRemoveTask()
-    }
+    playerViewModel.player.destroy()
   }
 
   val serviceConnection = object : ServiceConnection {
@@ -387,6 +378,20 @@ abstract class PlayerActivity : BasePlayerActivity() {
     )
   }
 
+  @Composable
+  fun PlayerScreen(
+    onBackPress: () -> Unit = {},
+  ) {
+    BasePlayerScreen(
+      playerHelper = this@PlayerActivity,
+      viewModel = playerViewModel,
+    ) {
+      PlayerControls(
+        viewModel = playerViewModel,
+        onBackPress = onBackPress,
+      )
+    }
+  }
 
   companion object {
     // action of result intent

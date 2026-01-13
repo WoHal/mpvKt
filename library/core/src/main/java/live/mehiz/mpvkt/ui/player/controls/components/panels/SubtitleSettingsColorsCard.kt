@@ -37,11 +37,11 @@ import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
 import androidx.core.graphics.toColorInt
+import io.github.wohal.quando.preference.Preference
+import io.github.wohal.quando.preference.deleteAndGet
 import `is`.xyz.mpv.MPVLib
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.SubtitlesPreferences
-import io.github.wohal.quando.preference.Preference
-import io.github.wohal.quando.preference.deleteAndGet
 import live.mehiz.mpvkt.presentation.components.ExpandableCard
 import live.mehiz.mpvkt.presentation.components.TintedSliderItem
 import live.mehiz.mpvkt.ui.player.controls.CARDS_MAX_WIDTH

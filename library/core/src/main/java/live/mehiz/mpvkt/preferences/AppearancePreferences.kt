@@ -1,9 +1,9 @@
 package live.mehiz.mpvkt.preferences
 
 import android.os.Build
-import live.mehiz.mpvkt.ui.theme.DarkMode
 import io.github.wohal.quando.preference.PreferenceStore
 import io.github.wohal.quando.preference.getEnum
+import live.mehiz.mpvkt.ui.theme.DarkMode
 
 class AppearancePreferences(preferenceStore: PreferenceStore) {
   val darkMode = preferenceStore.getEnum("dark_mode", DarkMode.System)

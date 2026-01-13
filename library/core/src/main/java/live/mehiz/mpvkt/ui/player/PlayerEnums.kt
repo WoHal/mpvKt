@@ -1,9 +1,9 @@
 package live.mehiz.mpvkt.ui.player
 
 import androidx.annotation.StringRes
+import io.github.wohal.quando.preference.Preference
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.DecoderPreferences
-import io.github.wohal.quando.preference.Preference
 
 enum class PlayerOrientation(@StringRes val titleRes: Int) {
   Free(R.string.pref_player_orientation_free),

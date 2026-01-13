@@ -22,11 +22,11 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import io.github.wohal.quando.preference.collectAsState
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 import live.mehiz.mpvkt.R
 import live.mehiz.mpvkt.preferences.GesturePreferences
-import io.github.wohal.quando.preference.collectAsState
 import live.mehiz.mpvkt.presentation.Screen
 import live.mehiz.mpvkt.ui.player.CustomKeyCodes
 import live.mehiz.mpvkt.ui.player.SingleActionGesture
